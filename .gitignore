@@ -1,0 +1,10 @@
+# Front-End
+
+# build
+build
+# module
+node_modules
+# etc
+DS_stroe
+
+# Back-End
