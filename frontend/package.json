@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --port 3000 --open",
     "build": "webpack --mode=production --progress",
-    "lint": "eslint --fix src && eslint src"
+    "lint": "eslint --fix src",
+    "prepare": "cd .. && husky install frontend/.husky"
   },
   "keywords": [],
   "author": "YHJ96",
@@ -38,6 +39,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "husky": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0"
