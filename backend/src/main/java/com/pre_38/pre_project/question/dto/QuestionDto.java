@@ -1,6 +1,8 @@
 package com.pre_38.pre_project.question.dto;
 
 import com.pre_38.pre_project.member.entity.Member;
+import com.pre_38.pre_project.reply.dto.ReplyDto;
+import com.pre_38.pre_project.reply.entity.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class QuestionDto {
 
@@ -50,5 +53,6 @@ public class QuestionDto {
         private LocalDateTime date;
         private long votes;
         private Member member;
+        private List<Reply> replies;
     }
 }

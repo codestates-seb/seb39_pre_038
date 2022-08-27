@@ -1,11 +1,17 @@
 package com.pre_38.pre_project.reply.controller;
 
+import com.pre_38.pre_project.dto.MultiResponseDto;
 import com.pre_38.pre_project.dto.SingleResponseDto;
+import com.pre_38.pre_project.member.entity.Member;
+import com.pre_38.pre_project.member.service.MemberService;
+import com.pre_38.pre_project.question.entity.Question;
+import com.pre_38.pre_project.question.service.QuestionService;
 import com.pre_38.pre_project.reply.dto.ReplyDto;
 import com.pre_38.pre_project.reply.entity.Reply;
 import com.pre_38.pre_project.reply.mapper.ReplyMapper;
 import com.pre_38.pre_project.reply.service.ReplyService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,11 +19,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @Validated
 @Slf4j
-@RequestMapping("/replys")
+@RequestMapping("/questions")
 public class ReplyController {
     private final ReplyService replyService;
     private final ReplyMapper mapper;
@@ -34,28 +41,31 @@ public class ReplyController {
         this.questionService = questionService;
     }
 
-    //요구사항 3.1
-    @GetMapping("/{reply-id}")
-    public ResponseEntity getReply(
-            @PathVariable("reply-id") @Positive long replyId) {
-        Reply reply = replyService.findReply(replyId);  // 물어보기
-        ReplyDto.response response = mapper.replyToReplyResponse(reply);
+    //요구사항 3.4
+    @GetMapping("/{question-id}/replies")
+    public ResponseEntity getReplies(@PathVariable("question-id") @Positive long questionId,
+                                     @RequestParam @Positive int page, @RequestParam @Positive int size){
+        Question question = questionService.findQuestion(questionId);
+        Page<Reply> pageReplies = replyService.findReplies(question,page,size);
+        List<Reply> replies = pageReplies.getContent();
+        List<ReplyDto.response> responses = mapper.repliesToReplyResponses(replies);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(response)
-                , HttpStatus.OK);
+                new MultiResponseDto<>(responses,pageReplies),HttpStatus.OK
+        );
     }
 
 
     // 요구사항 3.2
-    @PostMapping("/ask")
-    public ResponseEntity postQuestion(@Valid @RequestBody Reply.Post replyPost){
-        Reply reply = mapper.ReplyPostToQuestion(replyPost);
-        Member member = memberService.findMember(ReplyPost.getName());
-        Reply.setMember(member);
+    @PostMapping("/replies")
+    public ResponseEntity postReply(@Valid @RequestBody ReplyDto.Post replyPost){
+        Reply reply = mapper.replyPostToReply(replyPost);
 
-        Question question = QuestionService.findQuestions(ReplyPost.getName());
-        Reply.setQuestion(question);
+        Member member = memberService.findMember(replyPost.getName());
+        reply.setMember(member);
+
+        Question question = questionService.findQuestion(replyPost.getQuestionId());
+        reply.setQuestion(question);
 
         Reply posted = replyService.createReply(reply);
         ReplyDto.response response = mapper.replyToReplyResponse(posted);
@@ -66,14 +76,11 @@ public class ReplyController {
     }
 
     // 요구사항 3.3
-    @DeleteMapping("/{reply-id}")
-    public ResponseEntity deleteReply(@PathVariable("reply-id") @Positive long replyId){
-        replyService.deleteReply(replyId);
+    @DeleteMapping("/{question-id}/{reply-id}")
+    public ResponseEntity deleteReply(@PathVariable("question-id") @Positive long questionId,
+                                      @PathVariable("reply-id") @Positive long replyId){
+
+        replyService.deleteReply(replyId, questionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
-    //  요구사항 3.4 구현 예정
-
-
 }
