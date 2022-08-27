@@ -1,9 +1,12 @@
 package com.pre_38.pre_project.reply.dto;
 
+import com.pre_38.pre_project.member.entity.Member;
+import com.pre_38.pre_project.question.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,8 +17,9 @@ public class ReplyDto {
     public static class Post {
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String content;
-
         private String name;
+        @NotNull
+        private long questionId;
     }
 
     @Getter
@@ -38,10 +42,10 @@ public class ReplyDto {
     @AllArgsConstructor
     public static class response{
         private long replyId;
-        private Question question;
-        private Member member;
         private String content;
         private LocalDateTime date;
         private long votes;
+        private Member member;
+        private Question question;
     }
 }

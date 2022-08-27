@@ -1,7 +1,7 @@
 package com.pre_38.pre_project.question.controller;
 
 import com.pre_38.pre_project.dto.MultiResponseDto;
-import com.pre_38.pre_project.dto.PageInfo;
+
 import com.pre_38.pre_project.dto.SingleResponseDto;
 import com.pre_38.pre_project.member.entity.Member;
 import com.pre_38.pre_project.member.service.MemberService;
@@ -35,7 +35,7 @@ public class QuestionController {
                               MemberService memberService){
         this.questionService = questionService;
         this.mapper = mapper;
-        this. memberService = memberService;
+        this.memberService = memberService;
     }
 
     //요구사항 2.1 + 2.6
@@ -74,11 +74,11 @@ public class QuestionController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    //요구사항 2.5
+    //요구사항 2.5 + 3.1
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId){
-        Question question = questionService.findQuestion(questionId);
-        QuestionDto.response response = mapper.questionToQuestionResponse(question);
+        Question question = questionService.findQuestion(questionId); //Question객체 가져오기
+        QuestionDto.response response = mapper.questionToQuestionResponse(question); //Question객체 변환
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response),HttpStatus.OK
