@@ -340,7 +340,7 @@ public class ControllerRestDocsTest {
         String content = gson.toJson(post);
 
         ReplyDto.response response = new ReplyDto.response(replyId,"아무 댓글",LocalDateTime.now(),1,new Member(1L,"아무 유저","1234",
-                "naver@naver.com",LocalDateTime.now()),new Question(1L,"아무 제목", "아무 내용", 0));
+                "naver@naver.com",LocalDateTime.now()));
 
         given(replyMapper.replyPostToReply(Mockito.any(ReplyDto.Post.class))).willReturn(new Reply());
         given(memberService.findMember(Mockito.anyString())).willReturn(new Member());
@@ -388,16 +388,7 @@ public class ControllerRestDocsTest {
                                         fieldWithPath("data.member.name").type(JsonFieldType.STRING).description("답글 작성 닉네임"),
                                         fieldWithPath("data.member.avatar").type(JsonFieldType.STRING).description("답글 작성 아바타"),
                                         fieldWithPath("data.member.date").type(JsonFieldType.STRING).description("답글 작성 가입 날짜"),
-                                        fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("답글 작성 이메일"),
-
-                                        fieldWithPath("data.question").description(JsonFieldType.OBJECT).description("답글의 게시글"),
-                                        fieldWithPath("data.question.questionId").description(JsonFieldType.NUMBER).description("답글의 게시글 식별자"),
-                                        fieldWithPath("data.question.title").description(JsonFieldType.STRING).description("답글의 게시글 제목"),
-                                        fieldWithPath("data.question.content").description(JsonFieldType.STRING).description("답글의 게시글 본문"),
-                                        fieldWithPath("data.question.votes").description(JsonFieldType.NUMBER).description("답글의 게시글 추천 수"),
-                                        fieldWithPath("data.question.date").description(JsonFieldType.STRING).description("답글의 게시글 작성 날짜"),
-                                        fieldWithPath("data.question.member").description(JsonFieldType.NULL).description("구현에서는 사용X"),
-                                        fieldWithPath("data.question.replies[]").description(JsonFieldType.ARRAY).description("구현에서는 사용X")
+                                        fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("답글 작성 이메일")
 
                                 )
                         )
@@ -442,11 +433,11 @@ public class ControllerRestDocsTest {
         int size = 10;
         List<ReplyDto.response> replies = List.of(
                 new ReplyDto.response(1L,"아무 댓글",LocalDateTime.now(),1,new Member(11L,"아무 유저","1234",
-                        "naver@naver.com",LocalDateTime.now()),new Question(1L,"아무 제목", "아무 내용", 0)),
+                        "naver@naver.com",LocalDateTime.now())),
                 new ReplyDto.response(2L,"아무 댓글",LocalDateTime.now(),1,new Member(22L,"아무 유저","1234",
-                        "naver@naver.com",LocalDateTime.now()),new Question(1L,"아무 제목", "아무 내용", 55)),
+                        "naver@naver.com",LocalDateTime.now())),
         new ReplyDto.response(3L,"아무 댓글",LocalDateTime.now(),1,new Member(33L,"아무 유저","1234",
-                "naver@naver.com",LocalDateTime.now()),new Question(1L,"아무 제목", "아무 내용", 4))
+                "naver@naver.com",LocalDateTime.now()))
         );
 
         given(questionService.findQuestion(Mockito.anyLong())).willReturn(new Question());
@@ -493,15 +484,6 @@ public class ControllerRestDocsTest {
                                         fieldWithPath("data[].member.avatar").type(JsonFieldType.STRING).description("답글 작성 아바타"),
                                         fieldWithPath("data[].member.date").type(JsonFieldType.STRING).description("답글 작성 가입 날짜"),
                                         fieldWithPath("data[].member.email").type(JsonFieldType.STRING).description("답글 작성 이메일"),
-
-                                        fieldWithPath("data[].question").description(JsonFieldType.OBJECT).description("답글의 게시글"),
-                                        fieldWithPath("data[].question.questionId").description(JsonFieldType.NUMBER).description("답글의 게시글 식별자"),
-                                        fieldWithPath("data[].question.title").description(JsonFieldType.STRING).description("답글의 게시글 제목"),
-                                        fieldWithPath("data[].question.content").description(JsonFieldType.STRING).description("답글의 게시글 본문"),
-                                        fieldWithPath("data[].question.votes").description(JsonFieldType.NUMBER).description("답글의 게시글 추천 수"),
-                                        fieldWithPath("data[].question.date").description(JsonFieldType.STRING).description("답글의 게시글 작성 날짜"),
-                                        fieldWithPath("data[].question.member").description(JsonFieldType.NULL).description("구현에서는 사용X"),
-                                        fieldWithPath("data[].question.replies[]").description(JsonFieldType.ARRAY).description("구현에서는 사용X"),
 
                                         fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
                                         fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("현재 페이지"),

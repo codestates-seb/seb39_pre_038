@@ -46,6 +46,5 @@ public class ReplyDto {
         private LocalDateTime date;
         private long votes;
         private Member member;
-        private Question question;
     }
 }
