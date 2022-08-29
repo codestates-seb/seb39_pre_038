@@ -84,9 +84,9 @@ public class ControllerRestDocsTest {
         Question question2 = new Question(22L,"나도 모르는 제목2","나도 모르는 내용 2",2);
         Question question3 = new Question(333L,"매우 뛰어난 양질의 제목3","매우 뛰어난 양질의 정보3",333);
 
-        Member member1 = new Member(123L,"초보","123", "naver@naver.com",LocalDateTime.now());
-        Member member2 = new Member(456L,"중수","abc","gmail@gmail.com", LocalDateTime.now());
-        Member member3 = new Member(789L,"고수","q1w2e3", "youtube@youtube.com",LocalDateTime.now());
+        Member member1 = new Member(123L,"초보","q1w2e3r4","123", "naver@naver.com",LocalDateTime.now());
+        Member member2 = new Member(456L,"중수","q1w2e3r4","abc","gmail@gmail.com", LocalDateTime.now());
+        Member member3 = new Member(789L,"고수","q1w2e3r4","q1w2e3", "youtube@youtube.com",LocalDateTime.now());
 
         question1.setMember(member1);
         question2.setMember(member2);
@@ -151,7 +151,8 @@ public class ControllerRestDocsTest {
 
                                         fieldWithPath("data[].member").type(JsonFieldType.OBJECT).description("회원 정보"),
                                         fieldWithPath("data[].member.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
-                                        fieldWithPath("data[].member.name").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("data[].member.username").type(JsonFieldType.STRING).description("회원 아이디"),
+                                        fieldWithPath("data[].member.password").type(JsonFieldType.STRING).description("회원 비밀번호"),
                                         fieldWithPath("data[].member.avatar").type(JsonFieldType.STRING).description("회원 아바타"),
                                         fieldWithPath("data[].member.date").type(JsonFieldType.STRING).description("가입 날짜"),
                                         fieldWithPath("data[].member.email").type(JsonFieldType.STRING).description("회원 이메일"),
@@ -164,7 +165,8 @@ public class ControllerRestDocsTest {
 
                                         fieldWithPath("data[].replies[].member").type(JsonFieldType.OBJECT).description("답글단 회원 정보"),
                                         fieldWithPath("data[].replies[].member.memberId").type(JsonFieldType.NUMBER).description("답글단 회원 식별자"),
-                                        fieldWithPath("data[].replies[].member.name").type(JsonFieldType.STRING).description("답글단 회원 이름"),
+                                        fieldWithPath("data[].replies[].member.username").type(JsonFieldType.STRING).description("답글단 회원 아이디"),
+                                        fieldWithPath("data[].replies[].member.password").type(JsonFieldType.STRING).description("답글단 회원 비밀번호"),
                                         fieldWithPath("data[].replies[].member.avatar").type(JsonFieldType.STRING).description("답글단 회원 아바타"),
                                         fieldWithPath("data[].replies[].member.date").type(JsonFieldType.STRING).description("답글단 가입 날짜"),
                                         fieldWithPath("data[].replies[].member.email").type(JsonFieldType.STRING).description("답글단 회원 이메일"),
@@ -186,7 +188,7 @@ public class ControllerRestDocsTest {
         QuestionDto.Post post = new QuestionDto.Post("아무제목","아무내용","아무유저");
         String content = gson.toJson(post);
         QuestionDto.response responseDto =
-                new QuestionDto.response(1L,"아무제목","아무내용",LocalDateTime.now(),0,new Member(1L,"아무유저","1234",
+                new QuestionDto.response(1L,"아무제목","아무내용",LocalDateTime.now(),0,new Member(1L,"아무유저","q1w2e3r4","1234",
                         "naver@naver.com",LocalDateTime.now()),new ArrayList<>());
 
         given(mapper.questionPostToQuestion(Mockito.any(QuestionDto.Post.class))).willReturn(new Question());
@@ -209,7 +211,7 @@ public class ControllerRestDocsTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.title").value(post.getTitle()))
                 .andExpect(jsonPath("$.data.content").value(post.getContent()))
-                .andExpect(jsonPath("$.data.member.name").value(post.getName()))
+                .andExpect(jsonPath("$.data.member.username").value(post.getUsername()))
                 .andDo(document(
                         "post-question",
                         preprocessRequest(prettyPrint()),
@@ -218,7 +220,7 @@ public class ControllerRestDocsTest {
                                 List.of(
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("게시글 제목"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("게시글 본문"),
-                                        fieldWithPath("name").type(JsonFieldType.STRING).description("게시글 작성자")
+                                        fieldWithPath("username").type(JsonFieldType.STRING).description("게시글 작성 아이디")
                                 )
                         ),
                         responseFields(
@@ -230,8 +232,9 @@ public class ControllerRestDocsTest {
                                         fieldWithPath("data.date").type(JsonFieldType.STRING).description("작성 일자"),
                                         fieldWithPath("data.votes").type(JsonFieldType.NUMBER).description("게시글 추천수"),
                                         fieldWithPath("data.member").type(JsonFieldType.OBJECT).description("게시글 작성자"),
-                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("작성자 아이디"),
-                                        fieldWithPath("data.member.name").type(JsonFieldType.STRING).description("작성자 닉네임"),
+                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("작성자 식별자"),
+                                        fieldWithPath("data.member.username").type(JsonFieldType.STRING).description("작성자 아이디"),
+                                        fieldWithPath("data.member.password").type(JsonFieldType.STRING).description("작성자 비밀번호"),
                                         fieldWithPath("data.member.avatar").type(JsonFieldType.STRING).description("작성자 아바타"),
                                         fieldWithPath("data.member.date").type(JsonFieldType.STRING).description("작성자 가입 날짜"),
                                         fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("작성자 이메일"),
@@ -272,9 +275,9 @@ public class ControllerRestDocsTest {
     public void getQuestion() throws Exception{
         //given
         long questionId = 1L;
-        Member member1 = new Member(123L,"초보","123", "naver@naver.com",LocalDateTime.now());
-        Member member2 = new Member(456L,"중수","abc","gmail@gmail.com", LocalDateTime.now());
-        Member member3 = new Member(789L,"고수","q1w2e3", "youtube@youtube.com",LocalDateTime.now());
+        Member member1 = new Member(123L,"초보","q1w2e3r4","123", "naver@naver.com",LocalDateTime.now());
+        Member member2 = new Member(456L,"중수","q1w2e3r4","abc","gmail@gmail.com", LocalDateTime.now());
+        Member member3 = new Member(789L,"고수","q1w2e3r4","q1w2e3", "youtube@youtube.com",LocalDateTime.now());
 
         ReplyDto.response reply1 = new ReplyDto.response(1L,"아무내용1",LocalDateTime.now(),0,member1);
         ReplyDto.response reply2 = new ReplyDto.response(12L,"아무내용2",LocalDateTime.now(),3,member2);
@@ -285,7 +288,7 @@ public class ControllerRestDocsTest {
 
 
         QuestionDto.response responseDto =
-                new QuestionDto.response(1L,"아무제목","아무내용",LocalDateTime.now(),0,new Member(1L,"아무유저","1234",
+                new QuestionDto.response(1L,"아무제목","아무내용",LocalDateTime.now(),0,new Member(1L,"아무유저","q1w2e3r4","1234",
                         "naver@naver.com",LocalDateTime.now()),List.of(reply1,reply2,reply3));
 
 
@@ -307,7 +310,7 @@ public class ControllerRestDocsTest {
                 .andExpect(jsonPath("$.data.title").value(responseDto.getTitle()))
                 .andExpect(jsonPath("$.data.content").value(responseDto.getContent()))
                 .andExpect(jsonPath("$.data.votes").value(responseDto.getVotes()))
-                .andExpect(jsonPath("$.data.member.name").value(responseDto.getMember().getName()))
+                .andExpect(jsonPath("$.data.member.username").value(responseDto.getMember().getUsername()))
                 .andExpect(jsonPath("$.data.member.avatar").value(responseDto.getMember().getAvatar()))
                 .andExpect(jsonPath("$.data.member.email").value(responseDto.getMember().getEmail()))
                 .andDo(document(
@@ -327,8 +330,9 @@ public class ControllerRestDocsTest {
                                         fieldWithPath("data.votes").type(JsonFieldType.NUMBER).description("게시글 추천수"),
 
                                         fieldWithPath("data.member").type(JsonFieldType.OBJECT).description("게시글 작성자"),
-                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("작성자 아이디"),
-                                        fieldWithPath("data.member.name").type(JsonFieldType.STRING).description("작성자 닉네임"),
+                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("작성자 식별자"),
+                                        fieldWithPath("data.member.username").type(JsonFieldType.STRING).description("작성자 아이디"),
+                                        fieldWithPath("data.member.password").type(JsonFieldType.STRING).description("작성자 비밀번호"),
                                         fieldWithPath("data.member.avatar").type(JsonFieldType.STRING).description("작성자 아바타"),
                                         fieldWithPath("data.member.date").type(JsonFieldType.STRING).description("작성자 가입 날짜"),
                                         fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("작성자 이메일"),
@@ -340,8 +344,9 @@ public class ControllerRestDocsTest {
                                         fieldWithPath("data.replies[].votes").type(JsonFieldType.NUMBER).description("답글 추천 수"),
 
                                         fieldWithPath("data.replies[].member").type(JsonFieldType.OBJECT).description("답글 회원"),
-                                        fieldWithPath("data.replies[].member.memberId").type(JsonFieldType.NUMBER).description("답글 작성자 아이디"),
-                                        fieldWithPath("data.replies[].member.name").type(JsonFieldType.STRING).description("답글 작성자 닉네임"),
+                                        fieldWithPath("data.replies[].member.memberId").type(JsonFieldType.NUMBER).description("답글 작성자 식별자"),
+                                        fieldWithPath("data.replies[].member.username").type(JsonFieldType.STRING).description("답글 작성자 아이디"),
+                                        fieldWithPath("data.replies[].member.password").type(JsonFieldType.STRING).description("답글 작성자 비밀번호"),
                                         fieldWithPath("data.replies[].member.avatar").type(JsonFieldType.STRING).description("답글 작성자 아바타"),
                                         fieldWithPath("data.replies[].member.date").type(JsonFieldType.STRING).description("답글 작성자 가입 날짜"),
                                         fieldWithPath("data.replies[].member.email").type(JsonFieldType.STRING).description("답글 작성자 이메일")
@@ -360,7 +365,7 @@ public class ControllerRestDocsTest {
         ReplyDto.Post post = new ReplyDto.Post("아무 댓글", "아무 유저",questionId);
         String content = gson.toJson(post);
 
-        ReplyDto.response response = new ReplyDto.response(replyId,"아무 댓글",LocalDateTime.now(),1,new Member(1L,"아무 유저","1234",
+        ReplyDto.response response = new ReplyDto.response(replyId,"아무 댓글",LocalDateTime.now(),1,new Member(1L,"아무 유저","q1w2e3r4","1234",
                 "naver@naver.com",LocalDateTime.now()));
 
         given(replyMapper.replyPostToReply(Mockito.any(ReplyDto.Post.class))).willReturn(new Reply());
@@ -384,7 +389,7 @@ public class ControllerRestDocsTest {
         actions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.content").value(response.getContent()))
-                .andExpect(jsonPath("$.data.member.name").value(response.getMember().getName()))
+                .andExpect(jsonPath("$.data.member.username").value(response.getMember().getUsername()))
                 .andExpect(jsonPath("$.data.votes").value(response.getVotes()))
                 .andDo(document(
                         "post-reply",
@@ -393,7 +398,7 @@ public class ControllerRestDocsTest {
                         requestFields(
                                 List.of(
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("답글"),
-                                        fieldWithPath("name").type(JsonFieldType.STRING).description("답글 작성자"),
+                                        fieldWithPath("username").type(JsonFieldType.STRING).description("답글 작성 아이디"),
                                         fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("게시글 식별자")
                                 )
                         ),
@@ -405,8 +410,9 @@ public class ControllerRestDocsTest {
                                         fieldWithPath("data.votes").type(JsonFieldType.NUMBER).description("답글 추천 수"),
 
                                         fieldWithPath("data.member").type(JsonFieldType.OBJECT).description("답글 작성 회원"),
-                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("답글 작성 아이디"),
-                                        fieldWithPath("data.member.name").type(JsonFieldType.STRING).description("답글 작성 닉네임"),
+                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("답글 작성 식별자"),
+                                        fieldWithPath("data.member.username").type(JsonFieldType.STRING).description("답글 작성자 아이디"),
+                                        fieldWithPath("data.member.password").type(JsonFieldType.STRING).description("답글 작성자 비밀번호"),
                                         fieldWithPath("data.member.avatar").type(JsonFieldType.STRING).description("답글 작성 아바타"),
                                         fieldWithPath("data.member.date").type(JsonFieldType.STRING).description("답글 작성 가입 날짜"),
                                         fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("답글 작성 이메일")
@@ -453,11 +459,11 @@ public class ControllerRestDocsTest {
         int page = 1;
         int size = 10;
         List<ReplyDto.response> replies = List.of(
-                new ReplyDto.response(1L,"아무 댓글",LocalDateTime.now(),1,new Member(11L,"아무 유저","1234",
+                new ReplyDto.response(1L,"아무 댓글",LocalDateTime.now(),1,new Member(11L,"아무 유저","q1w2e3r4","1234",
                         "naver@naver.com",LocalDateTime.now())),
-                new ReplyDto.response(2L,"아무 댓글",LocalDateTime.now(),1,new Member(22L,"아무 유저","1234",
+                new ReplyDto.response(2L,"아무 댓글",LocalDateTime.now(),1,new Member(22L,"아무 유저","q1w2e3r4","1234",
                         "naver@naver.com",LocalDateTime.now())),
-        new ReplyDto.response(3L,"아무 댓글",LocalDateTime.now(),1,new Member(33L,"아무 유저","1234",
+        new ReplyDto.response(3L,"아무 댓글",LocalDateTime.now(),1,new Member(33L,"아무 유저","q1w2e3r4","1234",
                 "naver@naver.com",LocalDateTime.now()))
         );
 
@@ -499,8 +505,9 @@ public class ControllerRestDocsTest {
                                         fieldWithPath("data[].votes").type(JsonFieldType.NUMBER).description("답글 추천 수"),
 
                                         fieldWithPath("data[].member").type(JsonFieldType.OBJECT).description("답글 작성 회원"),
-                                        fieldWithPath("data[].member.memberId").type(JsonFieldType.NUMBER).description("답글 작성 아이디"),
-                                        fieldWithPath("data[].member.name").type(JsonFieldType.STRING).description("답글 작성 닉네임"),
+                                        fieldWithPath("data[].member.memberId").type(JsonFieldType.NUMBER).description("답글 작성 식별자"),
+                                        fieldWithPath("data[].member.username").type(JsonFieldType.STRING).description("답글 작성자 아이디"),
+                                        fieldWithPath("data[].member.password").type(JsonFieldType.STRING).description("답글 작성자 비밀번호"),
                                         fieldWithPath("data[].member.avatar").type(JsonFieldType.STRING).description("답글 작성 아바타"),
                                         fieldWithPath("data[].member.date").type(JsonFieldType.STRING).description("답글 작성 가입 날짜"),
                                         fieldWithPath("data[].member.email").type(JsonFieldType.STRING).description("답글 작성 이메일"),
