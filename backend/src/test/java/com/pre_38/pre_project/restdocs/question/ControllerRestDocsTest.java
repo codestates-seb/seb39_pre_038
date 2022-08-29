@@ -422,7 +422,7 @@ public class ControllerRestDocsTest {
         long questionId = 1L;
         long replyId = 1L;
 
-        doNothing().when(replyService).deleteReply(Mockito.anyLong(),Mockito.anyLong());
+        doNothing().when(replyService).deleteReply(Mockito.anyLong());
 
         //when
         ResultActions actions =
@@ -461,8 +461,7 @@ public class ControllerRestDocsTest {
                 "naver@naver.com",LocalDateTime.now()))
         );
 
-        given(questionService.findQuestion(Mockito.anyLong())).willReturn(new Question());
-        given(replyService.findReplies(Mockito.any(Question.class),Mockito.anyInt(),Mockito.anyInt())).willReturn(new PageImpl<>(List.of()));
+        given(replyService.findReplies(Mockito.anyLong(),Mockito.anyInt(),Mockito.anyInt())).willReturn(new PageImpl<>(List.of()));
         given(replyMapper.repliesToReplyResponses(Mockito.anyList())).willReturn(replies);
 
         String pages = String.valueOf(page);

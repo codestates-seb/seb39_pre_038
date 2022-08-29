@@ -45,8 +45,7 @@ public class ReplyController {
     @GetMapping("/{question-id}/replies")
     public ResponseEntity getReplies(@PathVariable("question-id") @Positive long questionId,
                                      @RequestParam @Positive int page, @RequestParam @Positive int size){
-        Question question = questionService.findQuestion(questionId);
-        Page<Reply> pageReplies = replyService.findReplies(question,page,size);
+        Page<Reply> pageReplies = replyService.findReplies(questionId,page-1,size);
         List<Reply> replies = pageReplies.getContent();
         List<ReplyDto.response> responses = mapper.repliesToReplyResponses(replies);
 
@@ -80,7 +79,7 @@ public class ReplyController {
     public ResponseEntity deleteReply(@PathVariable("question-id") @Positive long questionId,
                                       @PathVariable("reply-id") @Positive long replyId){
 
-        replyService.deleteReply(questionId, replyId);
+        replyService.deleteReply(replyId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
