@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -24,6 +26,7 @@ public class MemberService {
     }
     //멤버 찾기용
     public Member findMember(String memberName){
-        return null;
+        //임시로 만든 엔티티
+        return new Member(1L,memberName,"아바타","gmail@gmail.com", LocalDateTime.now());
     }
 }

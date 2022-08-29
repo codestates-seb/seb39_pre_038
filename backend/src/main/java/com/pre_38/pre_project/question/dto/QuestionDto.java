@@ -53,6 +53,7 @@ public class QuestionDto {
         private LocalDateTime date;
         private long votes;
         private Member member;
-        private List<Reply> replies;
+        //List<Reply>시 무한루프, 에러 발생, 엔티티 <-> DTO 계층 구분 확실히 해둘 것
+        private List<ReplyDto.response> replies;
     }
 }
