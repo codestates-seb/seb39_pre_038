@@ -30,7 +30,7 @@ public class Reply {
 
 
     // 답글 : 게시판 = N : 1 양방향
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 

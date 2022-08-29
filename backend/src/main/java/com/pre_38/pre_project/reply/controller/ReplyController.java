@@ -80,7 +80,7 @@ public class ReplyController {
     public ResponseEntity deleteReply(@PathVariable("question-id") @Positive long questionId,
                                       @PathVariable("reply-id") @Positive long replyId){
 
-        replyService.deleteReply(replyId, questionId);
+        replyService.deleteReply(questionId, replyId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
