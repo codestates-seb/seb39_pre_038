@@ -37,6 +37,7 @@
     "react/prop-types": ["off"],
     "react-hooks/exhaustive-deps": ["warn"],
     "react/jsx-props-no-spreading": ["warn"],
-    "comma-dangle": ["error"]
+    "comma-dangle": ["error"],
+    "no-console": ["warn"]
   }
 }
