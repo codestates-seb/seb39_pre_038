@@ -23,7 +23,7 @@ public class QuestionDto {
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String content;
 
-        private String name;
+        private String username;
     }
 
     @Getter

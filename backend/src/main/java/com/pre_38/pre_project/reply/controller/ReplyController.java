@@ -60,7 +60,7 @@ public class ReplyController {
     public ResponseEntity postReply(@Valid @RequestBody ReplyDto.Post replyPost){
         Reply reply = mapper.replyPostToReply(replyPost);
 
-        Member member = memberService.findMember(replyPost.getName());
+        Member member = memberService.findMember(replyPost.getUsername());
         reply.setMember(member);
 
         Question question = questionService.findQuestion(replyPost.getQuestionId());
