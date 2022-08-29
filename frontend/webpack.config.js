@@ -13,6 +13,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
     filename: '[name].js',
     clean: true,
   },
@@ -36,6 +37,9 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
   ],
+  devServer: {
+    historyApiFallback: true,
+  },
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
   },
