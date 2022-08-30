@@ -30,7 +30,7 @@ version: 0.0
 os: linux
 files:
   - source:  /
-    destination: /home/ubuntu/action
+    destination: /home/ubuntu
     overwrite: yes
 
 permissions:
@@ -42,6 +42,6 @@ permissions:
 
 hooks:
   ApplicationStart:
-    - location: /home/ubuntu/seb39_pre_038_kal1777/scripts/deploy.sh
+    - location: scripts/deploy.sh
       timeout: 300
       runas: ubuntu
