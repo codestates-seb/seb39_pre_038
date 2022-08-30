@@ -12,7 +12,6 @@ phases:
       - ./gradlew build
   post_build:
     commands:
-      - echo $(basename ./DeployServer/build/libs/*.jar)
         #      - echo $(basename ./github_test/build/libs/*.jar)
         - echo $(basename ./build/libs/*.jar)
 artifacts:
