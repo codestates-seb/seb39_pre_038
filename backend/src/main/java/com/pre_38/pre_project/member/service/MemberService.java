@@ -39,7 +39,7 @@ public class MemberService {
                 memberRepository.findByUsername(username);
         Member findMember =
                 optionalMember.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return findMember;
     }
