@@ -209,7 +209,7 @@ public class ControllerRestDocsTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.title").value(post.getTitle()))
                 .andExpect(jsonPath("$.data.content").value(post.getContent()))
-                .andExpect(jsonPath("$.data.member.name").value(post.getName()))
+//                .andExpect(jsonPath("$.data.member.name").value(post.getName()))
                 .andDo(document(
                         "post-question",
                         preprocessRequest(prettyPrint()),
@@ -270,6 +270,7 @@ public class ControllerRestDocsTest {
 
     @Test
     public void getQuestion() throws Exception{
+        // 메서드 시그니처 변경 - /member/entity/member
         //given
         long questionId = 1L;
         Member member1 = new Member(123L,"초보","123", "naver@naver.com",LocalDateTime.now());
@@ -307,7 +308,7 @@ public class ControllerRestDocsTest {
                 .andExpect(jsonPath("$.data.title").value(responseDto.getTitle()))
                 .andExpect(jsonPath("$.data.content").value(responseDto.getContent()))
                 .andExpect(jsonPath("$.data.votes").value(responseDto.getVotes()))
-                .andExpect(jsonPath("$.data.member.name").value(responseDto.getMember().getName()))
+//                .andExpect(jsonPath("$.data.member.name").value(responseDto.getMember().getName()))
                 .andExpect(jsonPath("$.data.member.avatar").value(responseDto.getMember().getAvatar()))
                 .andExpect(jsonPath("$.data.member.email").value(responseDto.getMember().getEmail()))
                 .andDo(document(
@@ -384,7 +385,7 @@ public class ControllerRestDocsTest {
         actions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.content").value(response.getContent()))
-                .andExpect(jsonPath("$.data.member.name").value(response.getMember().getName()))
+//                .andExpect(jsonPath("$.data.member.name").value(response.getMember().getName()))
                 .andExpect(jsonPath("$.data.votes").value(response.getVotes()))
                 .andDo(document(
                         "post-reply",
