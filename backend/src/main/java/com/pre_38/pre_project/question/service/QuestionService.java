@@ -59,8 +59,10 @@ public class QuestionService {
 
     //테이블에서 존재하는지 확인하는 메서드
     public Question findVerifiedQuestion(long questionId){
+        //Id 값으로 검색
         Optional<Question> optionalQuestion =
                 questionRepository.findById(questionId);
+        //존재 여부 확인
         Question findQuestion =
                 optionalQuestion.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
