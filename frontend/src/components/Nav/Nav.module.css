@@ -104,3 +104,26 @@
   transition-timing-function: ease-in-out;
   transform: rotate(45deg);
 }
+
+button {
+  width: 60px;
+  height: 33px;
+}
+
+ol {
+  width: 228px;
+  height: 37px;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #525960;
+  padding: 6px 12px;
+}
+
+input {
+  width: 681px;
+  height: 32px;
+}
