@@ -30,13 +30,11 @@ version: 0.0
 os: linux
 files:
   - source:  /
-    #    destination: /home/ubuntu/action
-    destination: /home/ubuntu/seb39_pre_038_kal1777
+    destination: /home/ubuntu/action
     overwrite: yes
 
 permissions:
-  - object: /home/ubuntu/seb39_pre_038_kal1777
-    #object : /
+  - object: /
     mode: 755
     pattern: "**"
     owner: ubuntu
