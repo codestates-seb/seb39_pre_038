@@ -35,13 +35,13 @@ files:
 
 permissions:
   - object: /
-    mode: 755
+#    mode: 755
     pattern: "**"
     owner: ubuntu
     group: ubuntu
 
 hooks:
   ApplicationStart:
-    - location: deploy.sh
+    - location: /home/ubuntu/seb39_pre_038_kal1777/scripts/deploy.sh
       timeout: 60
       runas: ubuntu
