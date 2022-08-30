@@ -5,7 +5,9 @@ import SvgIcon from '../SvgIcon/SvgIcon';
 function SocialButtons() {
   return (
     <React.Fragment key={null}>
-      <SvgIcon name="stackOverFlow" />
+      <header>
+        <SvgIcon name="stackOverFlow" />
+      </header>
 
       <form className={styles.btnWrap}>
         <button type="button">
