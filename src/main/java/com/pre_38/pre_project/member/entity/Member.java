@@ -31,7 +31,7 @@ public class Member {
     private LocalDateTime date = LocalDateTime.now();
 
     @Builder
-    public Member(Long memberId, String username, String password, String email) {
+    public Member(Long memberId, String username, String password, String email, LocalDateTime now) {
         this.memberId = memberId;
         this.username = username;
         this.password = password;

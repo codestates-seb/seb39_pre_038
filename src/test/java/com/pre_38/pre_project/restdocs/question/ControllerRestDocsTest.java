@@ -80,44 +80,44 @@ public class ControllerRestDocsTest {
         int page = 1;
         int size = 10;
 
-        Question question1 = new Question(1L,"아무제목1","아무내용1",0);
-        Question question2 = new Question(22L,"나도 모르는 제목2","나도 모르는 내용 2",2);
-        Question question3 = new Question(333L,"매우 뛰어난 양질의 제목3","매우 뛰어난 양질의 정보3",333);
+        Question question1 = new Question(1L, "아무제목1", "아무내용1", 0);
+        Question question2 = new Question(22L, "나도 모르는 제목2", "나도 모르는 내용 2", 2);
+        Question question3 = new Question(333L, "매우 뛰어난 양질의 제목3", "매우 뛰어난 양질의 정보3", 333);
 
-        Member member1 = new Member(123L,"초보","123", "naver@naver.com",LocalDateTime.now());
-        Member member2 = new Member(456L,"중수","abc","gmail@gmail.com", LocalDateTime.now());
-        Member member3 = new Member(789L,"고수","q1w2e3", "youtube@youtube.com",LocalDateTime.now());
+        Member member1 = new Member(123L, "초보", "123", "naver@naver.com", LocalDateTime.now());
+        Member member2 = new Member(456L, "중수", "abc", "gmail@gmail.com", LocalDateTime.now());
+        Member member3 = new Member(789L, "고수", "q1w2e3", "youtube@youtube.com", LocalDateTime.now());
 
         question1.setMember(member1);
         question2.setMember(member2);
         question3.setMember(member3);
 
         Page<Question> pageQuestions = new PageImpl<>(
-                List.of(question1,question2,question3), PageRequest.of(page,size, Sort.by("questionId").descending()),3);
+                List.of(question1, question2, question3), PageRequest.of(page, size, Sort.by("questionId").descending()), 3);
 
         List<ReplyDto.response> replies1 = List.of(
-                new ReplyDto.response(1L,"댓글1",LocalDateTime.now(),0,member1)
+                new ReplyDto.response(1L, "댓글1", LocalDateTime.now(), 0, member1)
         );
 
         List<ReplyDto.response> replies2 = List.of(
-                new ReplyDto.response(2L,"댓글2",LocalDateTime.now(),5,member2),
-                new ReplyDto.response(3L,"댓글3",LocalDateTime.now(),2,member3)
+                new ReplyDto.response(2L, "댓글2", LocalDateTime.now(), 5, member2),
+                new ReplyDto.response(3L, "댓글3", LocalDateTime.now(), 2, member3)
         );
 
         List<QuestionDto.response> responses = List.of(
-                new QuestionDto.response(question1.getQuestionId(),question1.getTitle(),question1.getContent(),question1.getDate(),question1.getVotes(),member1,replies1),
-                new QuestionDto.response(question2.getQuestionId(),question2.getTitle(),question2.getContent(),question2.getDate(),question2.getVotes(),member2,replies2),
-                new QuestionDto.response(question3.getQuestionId(),question3.getTitle(),question3.getContent(),question3.getDate(),question3.getVotes(),member3,new ArrayList<>())
+                new QuestionDto.response(question1.getQuestionId(), question1.getTitle(), question1.getContent(), question1.getDate(), question1.getVotes(), member1, replies1),
+                new QuestionDto.response(question2.getQuestionId(), question2.getTitle(), question2.getContent(), question2.getDate(), question2.getVotes(), member2, replies2),
+                new QuestionDto.response(question3.getQuestionId(), question3.getTitle(), question3.getContent(), question3.getDate(), question3.getVotes(), member3, new ArrayList<>())
         );
 
-        given(questionService.findQuestions(Mockito.anyInt(),Mockito.anyInt())).willReturn(new PageImpl<>(List.of()));
+        given(questionService.findQuestions(Mockito.anyInt(), Mockito.anyInt())).willReturn(new PageImpl<>(List.of()));
         given(mapper.questionsToQuestionResponses(Mockito.anyList())).willReturn(responses);
 
         String pages = String.valueOf(page);
         String sizes = String.valueOf(size);
-        MultiValueMap<String,String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("page",pages);
-        queryParams.add("size",sizes);
+        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        queryParams.add("page", pages);
+        queryParams.add("size", sizes);
 
 
         //when
@@ -181,13 +181,13 @@ public class ControllerRestDocsTest {
 
 
     @Test
-    public void postQuestionTest() throws Exception{
+    public void postQuestionTest() throws Exception {
         //given
-        QuestionDto.Post post = new QuestionDto.Post("아무제목","아무내용","아무유저");
+        QuestionDto.Post post = new QuestionDto.Post("아무제목", "아무내용", "아무유저");
         String content = gson.toJson(post);
         QuestionDto.response responseDto =
-                new QuestionDto.response(1L,"아무제목","아무내용",LocalDateTime.now(),0,new Member(1L,"아무유저","1234",
-                        "naver@naver.com",LocalDateTime.now()),new ArrayList<>());
+                new QuestionDto.response(1L, "아무제목", "아무내용", LocalDateTime.now(), 0, new Member(1L, "아무유저", "1234",
+                        "naver@naver.com", LocalDateTime.now()), new ArrayList<>());
 
         given(mapper.questionPostToQuestion(Mockito.any(QuestionDto.Post.class))).willReturn(new Question());
         given(memberService.findMember(Mockito.anyString())).willReturn(new Member());
@@ -242,7 +242,7 @@ public class ControllerRestDocsTest {
     }
 
     @Test
-    public void deleteQuestion() throws Exception{
+    public void deleteQuestion() throws Exception {
         //given
         long questionId = 1L;
         doNothing().when(questionService).deleteQuestion(Mockito.anyLong());
@@ -250,7 +250,7 @@ public class ControllerRestDocsTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        delete("/questions/{question-id}",questionId)
+                        delete("/questions/{question-id}", questionId)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(SecurityMockMvcRequestPostProcessors.csrf())
                 );
@@ -269,24 +269,21 @@ public class ControllerRestDocsTest {
     }
 
     @Test
-    public void getQuestion() throws Exception{
+    public void getQuestion() throws Exception {
         //given
         long questionId = 1L;
-        Member member1 = new Member(123L,"초보","123", "naver@naver.com",LocalDateTime.now());
-        Member member2 = new Member(456L,"중수","abc","gmail@gmail.com", LocalDateTime.now());
-        Member member3 = new Member(789L,"고수","q1w2e3", "youtube@youtube.com",LocalDateTime.now());
+        Member member1 = new Member(123L, "초보", "123", "naver@naver.com", LocalDateTime.now());
+        Member member2 = new Member(456L, "중수", "abc", "gmail@gmail.com", LocalDateTime.now());
+        Member member3 = new Member(789L, "고수", "q1w2e3", "youtube@youtube.com", LocalDateTime.now());
 
-        ReplyDto.response reply1 = new ReplyDto.response(1L,"아무내용1",LocalDateTime.now(),0,member1);
-        ReplyDto.response reply2 = new ReplyDto.response(12L,"아무내용2",LocalDateTime.now(),3,member2);
-        ReplyDto.response reply3 = new ReplyDto.response(34L,"아무내용3",LocalDateTime.now(),8,member3);
-
-
-
+        ReplyDto.response reply1 = new ReplyDto.response(1L, "아무내용1", LocalDateTime.now(), 0, member1);
+        ReplyDto.response reply2 = new ReplyDto.response(12L, "아무내용2", LocalDateTime.now(), 3, member2);
+        ReplyDto.response reply3 = new ReplyDto.response(34L, "아무내용3", LocalDateTime.now(), 8, member3);
 
 
         QuestionDto.response responseDto =
-                new QuestionDto.response(1L,"아무제목","아무내용",LocalDateTime.now(),0,new Member(1L,"아무유저","1234",
-                        "naver@naver.com",LocalDateTime.now()),List.of(reply1,reply2,reply3));
+                new QuestionDto.response(1L, "아무제목", "아무내용", LocalDateTime.now(), 0, new Member(1L, "아무유저", "1234",
+                        "naver@naver.com", LocalDateTime.now()), List.of(reply1, reply2, reply3));
 
 
         given(questionService.findQuestion(Mockito.anyLong())).willReturn(new Question());
@@ -295,7 +292,7 @@ public class ControllerRestDocsTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        get("/questions/{question-id}",questionId)
+                        get("/questions/{question-id}", questionId)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(SecurityMockMvcRequestPostProcessors.csrf())
                 );
@@ -352,16 +349,16 @@ public class ControllerRestDocsTest {
 
     //405에러 주의 : Post -> PathParameter 사용시 에러 (POST는 노출 절대 안됨!!)
     @Test
-    public void postReplyTest() throws Exception{
+    public void postReplyTest() throws Exception {
         //given
         long replyId = 1L;
         long questionId = 1L;
 
-        ReplyDto.Post post = new ReplyDto.Post("아무 댓글", "아무 유저",questionId);
+        ReplyDto.Post post = new ReplyDto.Post("아무 댓글", "아무 유저", questionId);
         String content = gson.toJson(post);
 
-        ReplyDto.response response = new ReplyDto.response(replyId,"아무 댓글",LocalDateTime.now(),1,new Member(1L,"아무 유저","1234",
-                "naver@naver.com",LocalDateTime.now()));
+        ReplyDto.response response = new ReplyDto.response(replyId, "아무 댓글", LocalDateTime.now(), 1, new Member(1L, "아무 유저", "1234",
+                "naver@naver.com", LocalDateTime.now()));
 
         given(replyMapper.replyPostToReply(Mockito.any(ReplyDto.Post.class))).willReturn(new Reply());
         given(memberService.findMember(Mockito.anyString())).willReturn(new Member());
@@ -417,7 +414,7 @@ public class ControllerRestDocsTest {
     }
 
     @Test
-    public void deleteReplyTest() throws Exception{
+    public void deleteReplyTest() throws Exception {
         //given
         long questionId = 1L;
         long replyId = 1L;
@@ -427,7 +424,7 @@ public class ControllerRestDocsTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        delete("/questions/{question-id}/{reply-id}",questionId,replyId)
+                        delete("/questions/{question-id}/{reply-id}", questionId, replyId)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .with(SecurityMockMvcRequestPostProcessors.csrf())
                 );
@@ -447,33 +444,33 @@ public class ControllerRestDocsTest {
     }
 
     @Test
-    public void getRepliesTest() throws Exception{
+    public void getRepliesTest() throws Exception {
         //given
         long questionId = 1L;
         int page = 1;
         int size = 10;
         List<ReplyDto.response> replies = List.of(
-                new ReplyDto.response(1L,"아무 댓글",LocalDateTime.now(),1,new Member(11L,"아무 유저","1234",
-                        "naver@naver.com",LocalDateTime.now())),
-                new ReplyDto.response(2L,"아무 댓글",LocalDateTime.now(),1,new Member(22L,"아무 유저","1234",
-                        "naver@naver.com",LocalDateTime.now())),
-        new ReplyDto.response(3L,"아무 댓글",LocalDateTime.now(),1,new Member(33L,"아무 유저","1234",
-                "naver@naver.com",LocalDateTime.now()))
+                new ReplyDto.response(1L, "아무 댓글", LocalDateTime.now(), 1, new Member(11L, "아무 유저", "1234",
+                        "naver@naver.com", LocalDateTime.now())),
+                new ReplyDto.response(2L, "아무 댓글", LocalDateTime.now(), 1, new Member(22L, "아무 유저", "1234",
+                        "naver@naver.com", LocalDateTime.now())),
+                new ReplyDto.response(3L, "아무 댓글", LocalDateTime.now(), 1, new Member(33L, "아무 유저", "1234",
+                        "naver@naver.com", LocalDateTime.now()))
         );
 
-        given(replyService.findReplies(Mockito.anyLong(),Mockito.anyInt(),Mockito.anyInt())).willReturn(new PageImpl<>(List.of()));
+        given(replyService.findReplies(Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())).willReturn(new PageImpl<>(List.of()));
         given(replyMapper.repliesToReplyResponses(Mockito.anyList())).willReturn(replies);
 
         String pages = String.valueOf(page);
         String sizes = String.valueOf(size);
-        MultiValueMap<String,String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("page",pages);
-        queryParams.add("size",sizes);
+        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        queryParams.add("page", pages);
+        queryParams.add("size", sizes);
 
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        get("/questions/{question-id}/replies",questionId)
+                        get("/questions/{question-id}/replies", questionId)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .params(queryParams)
 //                                .with(SecurityMockMvcRequestPostProcessors.csrf())
