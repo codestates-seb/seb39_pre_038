@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-chmod +x /home/ubuntu/build/**
+sudo chmod +x /home/ubuntu/build/**
