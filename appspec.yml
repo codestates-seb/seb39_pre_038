@@ -30,7 +30,8 @@ version: 0.0
 os: linux
 files:
   - source:  /
-    destination: /home/ubuntu/action
+    #    destination: /home/ubuntu/action
+    destination: /home/ubuntu/seb39_pre_038_kal1777
     overwrite: yes
 
 permissions:
