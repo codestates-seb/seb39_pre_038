@@ -10,3 +10,97 @@
 .container ol {
   display: flex;
 }
+
+.hamberger {
+  display: flex;
+  width: 48px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.hamberger_off {
+  display: flex;
+  width: 48px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.hamberger_off span {
+  position: relative;
+  width: 16px;
+  height: 2px;
+  background-color: hsl(210deg 8% 35%);
+}
+
+.hamberger_off span::before {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: -5px;
+  width: 16px;
+  height: 2px;
+  background-color: hsl(210deg 8% 35%);
+  transition: top, transform;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+}
+
+.hamberger_off span::after {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 5px;
+  width: 16px;
+  height: 2px;
+  background-color: hsl(210deg 8% 35%);
+  transition: top, transform;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+}
+
+.hamberger_on {
+  display: flex;
+  width: 48px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.hamberger_on span {
+  background-color: transparent;
+  position: relative;
+  width: 16px;
+  height: 2px;
+}
+
+.hamberger_on span::before {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 0px;
+  width: 16px;
+  height: 2px;
+  background-color: hsl(210deg 8% 35%);
+  transition: top, transform;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+  transform: rotate(-45deg);
+}
+.hamberger_on span::after {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 2px;
+  background-color: hsl(210deg 8% 35%);
+  transition: top, transform;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+  transform: rotate(45deg);
+}
