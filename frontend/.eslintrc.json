@@ -32,7 +32,7 @@
       }
     ],
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
-    "arrow-parens": ["warn", "as-needed"],
+    "arrow-parens": ["off"],
     "import/prefer-default-export": ["off"],
     "react/prop-types": ["off"],
     "react-hooks/exhaustive-deps": ["warn"],
