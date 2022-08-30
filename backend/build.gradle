@@ -49,17 +49,18 @@ dependencies {
 	//SpringSecurity 사용시 테스트에 반드시 필요 (@WithMockUser)
 	testImplementation 'org.springframework.security:spring-security-test'
 	//MapStruct
-	implementation 'org.mapstruct:mapstruct:1.5.1.Final'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
+	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
 	//Email
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	//Gson
 	implementation 'com.google.code.gson:gson'
 	//JWT
-	implementation 'com.auth0:java-jwt:3.19.2'
+	implementation 'com.auth0:java-jwt:4.0.0'
 	//OAuth2
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	//
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 }
 
 tasks.named('test') {

@@ -15,20 +15,21 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    @Column(nullable = false, length = 20)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
     //@Column(nullable = false)
     private String avatar;
 
-    @Column(nullable = false)
     private String email;
 
     //@Column(nullable = false)
     private LocalDateTime date = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     @Builder
     public Member(Long memberId, String username, String password, String email) {
@@ -36,5 +37,17 @@ public class Member {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public Member(Long memberId, String username, String avatar, String password, String email) {
+        this.memberId = memberId;
+        this.avatar = avatar;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public String getRoleValue() {
+        return this.role.getValue();
     }
 }
