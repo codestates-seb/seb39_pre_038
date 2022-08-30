@@ -35,7 +35,9 @@ files:
     overwrite: yes
 
 permissions:
-  - object: /
+  - object: /home/ubuntu/seb39_pre_038_kal1777
+    #object : /
+    mode: 755
     pattern: "**"
     owner: ubuntu
     group: ubuntu
