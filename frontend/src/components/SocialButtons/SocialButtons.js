@@ -1,10 +1,10 @@
 import React from 'react';
-import SvgIcon from '../components/SvgIcon';
-import styles from './Login.module.css';
+import styles from './SocialButtons.module.css';
+import SvgIcon from '../SvgIcon/SvgIcon';
 
-function Login() {
+function SocialButtons() {
   return (
-    <main className={styles.container}>
+    <React.Fragment key={null}>
       <SvgIcon name="stackOverFlow" />
 
       <form className={styles.btnWrap}>
@@ -32,8 +32,8 @@ function Login() {
           <SvgIcon name="share" className={styles.test} />
         </div>
       </footer>
-    </main>
+    </React.Fragment>
   );
 }
 
-export default Login;
+export default SocialButtons;

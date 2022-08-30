@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Icon.module.css';
+import styles from './SpriteIcon.module.css';
 
 const type = {
   logo: {
@@ -49,8 +49,8 @@ const type = {
   },
 };
 
-function Icon({ name = '' }) {
+function SpriteIcon({ name = '' }) {
   return <div className={styles.iconContainer} style={type[name]} />;
 }
 
-export default Icon;
+export default SpriteIcon;
