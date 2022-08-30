@@ -9,16 +9,16 @@ hooks:
   BeforeInstall:
     - location: scripts/server_clear.sh
       timeout: 3000
-      runas: root
+      runas: ubuntu
   AfterInstall:
     - location: scripts/initialize.sh
       timeout: 3000
-      runas: root
+      runas: ubuntu
   ApplicationStart:
     - location: scripts/server_start.sh
       timeout: 3000
-      runas: root
+      runas: ubuntu
   ApplicationStop:
     - location: scripts/server_stop.sh
       timeout: 3000
-      runas: root
+      runas: ubuntu
