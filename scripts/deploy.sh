@@ -1,5 +1,5 @@
 #!/bin/bash
-BUILD_JAR=$(ls /home/ubuntu/seb39_pre_038_new/build/libs/practice-githubAction-deploy-0.0.1-SNAPSHOT.jar)
+BUILD_JAR=$(ls /home/ubuntu/seb39_pre_038_new/build/libs/pre_project-0.0.1-SNAPSHOT.jar)
 JAR_NAME=$(basename $BUILD_JAR)
 
 echo "> 현재 시간: $(date)" >> /home/ubuntu/seb39_pre_038_new/deploy.log
