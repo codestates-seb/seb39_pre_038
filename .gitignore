@@ -16,6 +16,7 @@ build/
 src/main/resources/application-server.yml
 backend/src/main/resources/application-server.yml
 
+
 ### STS ###
 .apt_generated
 .classpath
