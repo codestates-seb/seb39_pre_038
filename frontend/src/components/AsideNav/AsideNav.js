@@ -7,16 +7,14 @@ function AsideNav() {
     <aside>
       <nav className={styles.container}>
         <ul>
-          Questions
+          PUBLIC
           <li>
             <SvgIcon name="earth" />
             Questions
           </li>
-          <div className={styles.textWrap}>
-            <li>Tags</li>
-            <li>Users</li>
-            <li>Companies</li>
-          </div>
+          <li>Tags</li>
+          <li>Users</li>
+          <li>Companies</li>
         </ul>
 
         <ul>

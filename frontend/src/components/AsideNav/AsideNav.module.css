@@ -10,11 +10,9 @@ aside {
   display: flex;
   flex-direction: column;
   padding-top: 30px;
-  gap: 18px;
 }
 
 .container ul {
-  width: calc(100% -164px);
   font-size: 11px;
   color: #6a737c;
   padding: 8px;
@@ -25,13 +23,12 @@ aside {
   cursor: pointer;
   font-size: 13px;
   color: #525960;
-  padding: 8px 6px 8px 8px;
+  padding: 8px 6px 8px 0px;
 }
 
 ul div {
   display: flex;
   align-items: center;
-  gap: 0 4px;
 }
 
 .icon {
@@ -56,11 +53,20 @@ ul div {
 ul li:nth-child(1) {
   display: flex;
   align-items: center;
-  gap: 0 4px;
+  gap: 0 6px;
 }
 
-.textWrap {
-  display: flex;
-  flex-direction: column;
-  padding-left: 22px;
+nav ul:nth-child(1) li:nth-child(2) {
+  height: 34px;
+  padding-left: 24px;
+}
+
+nav ul:nth-child(1) li:nth-child(3) {
+  height: 34px;
+  padding-left: 24px;
+}
+
+nav ul:nth-child(1) li:nth-child(4) {
+  height: 34px;
+  padding-left: 24px;
 }
