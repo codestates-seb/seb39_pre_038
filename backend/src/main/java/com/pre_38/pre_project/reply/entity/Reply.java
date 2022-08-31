@@ -40,8 +40,8 @@ public class Reply {
             question.getReplies().add(this);
     }
 
-    // 답글 : 회원 = 1 : 1 단방향
-    @OneToOne
+    // 답글 : 회원 = 1 : N 단방향
+    @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 

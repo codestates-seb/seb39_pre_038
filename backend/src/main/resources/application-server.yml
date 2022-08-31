@@ -1,14 +1,11 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 1234
-    url: jdbc:mysql://localhost:3306/pre_project?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: {RDS MySql Admin id}
+    password: {RDS MySql Admin password}
+    url: jdbc:mysql://{AWS RDS Endpoint}/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
   jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  config:
+    domain: {AWS S3 Endpoint}
