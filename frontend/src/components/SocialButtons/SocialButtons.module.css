@@ -1,0 +1,63 @@
+.btnWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px 0;
+}
+
+.btnWrap button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 4px;
+  width: 278px;
+  height: 38px;
+  padding: 10.4px;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fdfdfd;
+  background-color: transparent;
+}
+
+.btnWrap button:nth-child(1) {
+  background-color: #fdfdfd;
+  color: #3b4045;
+}
+
+.btnWrap button:nth-child(2) {
+  background-color: #2f3337;
+}
+
+.btnWrap button:nth-child(3) {
+  background-color: #385499;
+}
+
+.textWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+  padding: 16px;
+  gap: 12px 0;
+}
+
+.textWrap div:last-child {
+  display: flex;
+  gap: 0 4px;
+}
+
+.textWrap em {
+  color: #0074cc;
+}
+
+@media all and (max-width: 768px) {
+  .btnWrap button {
+    width: 268px;
+  }
+
+  .textWrap svg {
+    display: none;
+  }
+}
