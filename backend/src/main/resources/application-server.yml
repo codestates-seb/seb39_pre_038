@@ -1,11 +1,11 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: {RDS MySql Admin id}
-    password: {RDS MySql Admin password}
-    url: jdbc:mysql://{AWS RDS Endpoint}/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: admin
+    password: pre3839!
+    url: jdbc:mysql://practice-database-deploy.c906r9seqbc6.ap-northeast-2.rds.amazonaws.com:13306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   config:
-    domain: {AWS S3 Endpoint}
+    domain: http://pre-38-bucket.s3-website.ap-northeast-2.amazonaws.com
