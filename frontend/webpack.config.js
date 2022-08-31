@@ -13,10 +13,10 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
     filename: '[name].js',
     clean: true,
   },
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {

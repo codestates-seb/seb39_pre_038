@@ -17,15 +17,21 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 
-    @PostMapping("/member/signup")
-    public ResponseEntity<Object> signupMember(
+    @PostMapping("/signup")
+    public ResponseEntity<Object> signup(
             @RequestBody MemberSignupRequestDto signupDto) {
-        return new ResponseEntity<>("", HttpStatus.CREATED);
+        memberService.signup(signupDto);
+        return new ResponseEntity<>("회원가입", HttpStatus.CREATED);
     }
 
-    @PostMapping("/member/login")
+    @PostMapping("/login")
     public ResponseEntity<Object> login(
             @RequestBody MemberLoginDto loginDto) {
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Object> logout() {
         return new ResponseEntity<>("", HttpStatus.OK);
     }
 }

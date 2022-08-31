@@ -2,10 +2,13 @@ package com.pre_38.pre_project.question.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pre_38.pre_project.member.entity.Member;
+import com.pre_38.pre_project.reply.entity.Reply;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,12 +31,22 @@ public class Question {
     @Column(nullable = false)
     private long votes;
 
-    @OneToOne
+    @OneToOne// 1:1 단방향
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
+    //Question 삭제 -> 해당 Question의 Reply도 삭제
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}) // 1:N 양방향
+    private List<Reply> replies = new ArrayList<>();
+
     public void setMember(Member member){
         this.member = member;
+    }
+
+    public void setReply(Reply reply){
+        replies.add(reply);
+        if(reply.getQuestion() != this)
+            reply.setQuestion(this);
     }
 
     public Question(Long questionId, String title, String content, int votes){

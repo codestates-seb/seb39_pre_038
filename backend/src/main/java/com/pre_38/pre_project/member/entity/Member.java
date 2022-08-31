@@ -16,14 +16,25 @@ public class Member {
     private Long memberId;
 
     @Column(nullable = false, length = 20)
-    private String name;
+    private String username;
 
     @Column(nullable = false)
+    private String password;
+
+    //@Column(nullable = false)
     private String avatar;
 
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private LocalDateTime date = LocalDateTime.now();
+
+    @Builder
+    public Member(Long memberId, String username, String password, String email) {
+        this.memberId = memberId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }

@@ -11,6 +11,6 @@ public interface ReplyMapper {
     Reply replyPostToReply (ReplyDto.Post replyPost);
     Reply replyPatchToReply(ReplyDto.Patch replyPatch);
     ReplyDto.response replyToReplyResponse(Reply reply);
-    List<ReplyDto.response> replysToReplyResponses(List<Reply> replys);
+    List<ReplyDto.response> repliesToReplyResponses(List<Reply> replies);
 }
 
