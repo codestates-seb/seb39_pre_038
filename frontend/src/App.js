@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
-import Questions from './pages/Questions';
+import Questions from './pages/Questions/Questions';
 
 function App() {
   return (
