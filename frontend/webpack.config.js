@@ -36,6 +36,9 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
   ],
+  devServer: {
+    historyApiFallback: true,
+  },
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
   },
