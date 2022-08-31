@@ -13,7 +13,7 @@
   position: sticky;
 }
 
-.container ol {
+.liWrap {
   display: flex;
 }
 
@@ -111,17 +111,17 @@
   transform: rotate(45deg);
 }
 
-button {
+.navInput button {
   width: 60px;
   height: 33px;
 }
 
-ol {
+.liWrap {
   width: 228px;
   height: 37px;
 }
 
-li {
+.liWrap li {
   display: flex;
   align-items: center;
   font-size: 13px;
@@ -129,7 +129,7 @@ li {
   padding: 6px 12px;
 }
 
-input {
+.navInput {
   width: 681px;
   height: 32px;
 }
