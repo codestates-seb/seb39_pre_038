@@ -1,12 +1,12 @@
 import React from 'react';
 import AsideNav from '../../components/AsideNav/AsideNav';
-import './Questions.module.css';
+import styles from './Questions.module.css';
 
 function Questions() {
   return (
-    <main>
+    <main className={styles.container}>
       <AsideNav />
-      <section>정보</section>
+      <section className={styles.content}>정보</section>
     </main>
   );
 }
