@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Nav.module.css';
 import SvgIcon from '../SvgIcon/SvgIcon';
 import SpriteIcon from '../SpriteIcon/SpriteIcon';
 
-function Nav() {
+/* 햄버거 아이콘 비활성화
   const [toggle, setToggle] = useState(false);
   const toggleHamberger = () => setToggle(!toggle);
-
-  return (
-    <nav className={styles.container}>
-      <div
-        className={toggle ? styles.hamberger_on : styles.hamberger_off}
-        onClick={toggleHamberger}
-        aria-hidden="true"
-        role="button"
-        tabIndex={0}
+    <div
+      className={toggle ? styles.hamberger_on : styles.hamberger_off}
+      onClick={toggleHamberger}
+      aria-hidden="true"
+      role="button"
+      tabIndex={0}
       >
         <span />
-      </div>
+    </div>
+*/
 
+function Nav() {
+  return (
+    <nav className={styles.container}>
       <Link to="/">
         <div className={styles.logo}>
           <SpriteIcon name="logo" />
