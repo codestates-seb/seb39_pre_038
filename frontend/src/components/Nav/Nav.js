@@ -23,13 +23,21 @@ function Nav() {
         <Link to="/">Questions</Link>
       </SpriteIcon>
 
+<<<<<<< HEAD
+      <ol className={styles.liWrap}>
+=======
       <ol>
+>>>>>>> main
         <li>About</li>
         <li>Products</li>
         <li>For Teams</li>
       </ol>
 
+<<<<<<< HEAD
+      <input className={styles.navInput} type="text" />
+=======
       <input type="text" />
+>>>>>>> main
       <Link to="/login">
         <button type="button">Login</button>
       </Link>
