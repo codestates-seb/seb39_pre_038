@@ -9,6 +9,7 @@ import style from './Replies.module.css';
 function Replies() {
   const [Title, setTitle] = useState();
   const [queDate, setQueDate] = useState();
+  const [ansDate, setAnsDate] = useState();
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState();
   const [totalAnswer, setTotalAnswer] = useState();
@@ -16,31 +17,28 @@ function Replies() {
   const [ansAvatarName, setAnsAvatarName] = useState();
   const [queAvatarImgUrl, setQueAvatarImgUrl] = useState();
   const [ansAvatarImgUrl, setAnsAvatarImgUrl] = useState();
+  const [queId, setQueId] = useState();
+  const [ansId, setAnsId] = useState();
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/posts')
+      .get('/questions/queId')
       .then((res) => {
-        // console.log(res.data);
-        setTitle(res.data[0].question_title);
-        setQueDate(res.data[0].question_date);
-        setQuestion(res.data[0].question_content);
-        setQuesAvatarName(res.data[0].avatarName);
-        setQueAvatarImgUrl(res.data[0].avatarImg);
-        setTotalAnswer(res.data[0].answer);
+        console.log(res.data.data);
+        setQueId(res.data.data.questionId);
+        setTitle(res.data.data.title);
+        setQueDate(res.data.data.date);
+        setQuestion(res.data.data.content);
+        setQuesAvatarName(res.data.data.member.username);
+        setQueAvatarImgUrl(res.data.data.member.avatar);
+        setTotalAnswer(res.data.data.replies.length);
+        setAnsId(res.data.data.replies.replyId);
+        setAnswer(res.data.data.replies[0].content);
+        setAnsAvatarName(res.data.data.replies[0].member.username);
+        setAnsAvatarImgUrl(res.data.data.replies[0].member.avatar);
+        setAnsDate(res.data.data.replies[0].member.date);
       })
       .catch((e) => console.log('somethign wrong:', e));
-  }, []);
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/answer').then((res) => {
-      // console.log(res.data);
-      setAnswer(res.data[0].reply_content);
-      // setAnsId(res.data.length);
-      setAnsAvatarName(res.data[0].avatarImg);
-      setAnsAvatarImgUrl(res.data[0].avatarImg);
-    });
-    // .catch((e) => console.log('somethign wrong:', e));
   }, []);
 
   const editorRef = useRef();
@@ -53,8 +51,9 @@ function Replies() {
     console.log(contentMark);
     axios
       .post('/questions/replies', {
-        content: contentMark,
-        replyId: 1,
+        content: 'test',
+        username: '작성자3',
+        questionId: 5,
       })
       .then((response) => {
         console.log(response);
@@ -64,12 +63,12 @@ function Replies() {
       });
   };
 
-  const AnswerDeleting = () => {
-    // axios.delete(`http://localhost:8080/answer/${ansId}`);
+  const QuestionDeleting = () => {
+    axios.delete(`/questions/${queId}`);
   };
 
-  const QuestionDeleting = () => {
-    // axios.delete(`http://localhost:8080/posts/${queId}`);
+  const AnswerDeleting = () => {
+    axios.delete(`/questions/${queId}/${ansId}`);
   };
 
   return (
@@ -133,7 +132,7 @@ function Replies() {
             </button>
 
             <span>
-              {ansAvatarImgUrl} {ansAvatarName}
+              {ansDate} {ansAvatarImgUrl} {ansAvatarName}
             </span>
           </div>
         </article>
