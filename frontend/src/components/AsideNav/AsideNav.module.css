@@ -70,3 +70,9 @@ nav ul:nth-child(1) li:nth-child(4) {
   height: 34px;
   padding-left: 24px;
 }
+
+@media all and (max-width: 640px) {
+  aside {
+    display: none;
+  }
+}
