@@ -2,8 +2,6 @@ package com.pre_38.pre_project.reply.entity;
 
 import com.pre_38.pre_project.member.entity.Member;
 import com.pre_38.pre_project.question.entity.Question;
-import com.pre_38.pre_project.member.entity.Member;
-import com.pre_38.pre_project.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,20 +31,18 @@ public class Reply {
 
     // 답글 : 게시판 = N : 1 양방향
     @ManyToOne
-    @JoinColumn(name = "QUESTION_ID")
+    @JoinColumn(name = "question_id")
     private Question question;
 
     public void setQuestion(Question question){
         this.question = question;
         if(!question.getReplies().contains(this))
             question.getReplies().add(this);
-        if(!question.getReplies().contains(this))
-            question.getReplies().add(this);
     }
 
-    // 답글 : 회원 = 1 : 1 단방향
-    @OneToOne
-    @JoinColumn(name = "MEMBER_ID")
+    // 답글 : 회원 = 1 : N 단방향
+    @ManyToOne
+    @JoinColumn(name = "member_id")
     private Member member;
 
     public void setMember(Member member){
