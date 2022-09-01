@@ -63,3 +63,15 @@
   color: #6a737c;
   font-size: 13px;
 }
+
+@media all and (max-width: 980px) {
+  .container {
+    flex-direction: column;
+    gap: 4px 0;
+  }
+  .stats {
+    width: 100%;
+    flex-direction: row;
+    gap: 0 8px;
+  }
+}
