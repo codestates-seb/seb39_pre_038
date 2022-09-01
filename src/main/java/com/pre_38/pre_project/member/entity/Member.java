@@ -21,20 +21,21 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private String avatar;
 
     @Column(nullable = false)
     private String email;
 
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private LocalDateTime date = LocalDateTime.now();
 
     @Builder
-    public Member(Long memberId, String username, String password, String email) {
+    public Member(Long memberId, String username, String password, String email, String avatar) {
         this.memberId = memberId;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.avatar = avatar;
     }
 }
