@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static java.time.LocalDateTime.now;
+
 //@Log4j2
 @Service
 @RequiredArgsConstructor
@@ -56,7 +58,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         Member member = Member.builder()
                 .email(userInfo.getEmail())
                 .username(userInfo.getName())
+                .avatar(userInfo.getAvatar())
                 .role(Role.USER)
+                .date(now())
                 .authProvider(authProvider)
                 .build();
         return memberRepository.save(member);

@@ -43,8 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
                 .antMatchers("/h2/**").permitAll()
-                .antMatchers("/oauth2/**").permitAll()
-//                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/oauth2/**", "/auth/**").permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity
@@ -56,15 +55,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.formLogin().disable()
                 .oauth2Login()
-                .authorizationEndpoint()
-                .baseUri("/oauth2/authorize")
-                .authorizationRequestRepository(cookieAuthorizationRequestRepository)
+                    .authorizationEndpoint()
+                        .baseUri("/oauth2/authorize")
+                        .authorizationRequestRepository(cookieAuthorizationRequestRepository)
                 .and()
                 .redirectionEndpoint()
-                .baseUri("/oauth2/callback/*")
+                    .baseUri("/oauth2/callback/*")
                 .and()
                 .userInfoEndpoint()
-                .userService(customOAuth2UserService)
+                    .userService(customOAuth2UserService)
                 .and()
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler);

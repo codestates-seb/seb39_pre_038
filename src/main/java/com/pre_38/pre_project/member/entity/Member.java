@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -36,14 +35,4 @@ public class Member {
 
     //@Column(nullable = false)
     private LocalDateTime date = LocalDateTime.now();
-
-    @Builder
-    public Member(Long memberId, String username, String avatar, String email, Role role, AuthProvider authProvider) {
-        this.memberId = memberId;
-        this.username = username;
-        this.avatar = avatar;
-        this.email = email;
-        this.authProvider = authProvider;
-        this.role = role;
-    }
 }
