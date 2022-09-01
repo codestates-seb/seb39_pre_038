@@ -1,9 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Question.module.css';
 
-function Question() {
+function Question({ path = 'yhj96' }) {
+  const navigate = useNavigate();
+  const handleOnClick = () => {
+    navigate(`${path}`);
+  };
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={handleOnClick}
+      role="button"
+      aria-hidden="true"
+    >
       <div className={styles.stats}>
         <div>0 votes</div>
         <div>2 answer</div>
