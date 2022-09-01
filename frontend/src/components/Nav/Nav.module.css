@@ -107,11 +107,6 @@
   transform: rotate(45deg);
 }
 
-.navInput button {
-  width: 60px;
-  height: 33px;
-}
-
 .liWrap {
   display: flex;
   width: 228px;
@@ -128,6 +123,7 @@
   flex-shrink: 0;
 }
 
+/*
 .navInput {
   position: relative;
 }
@@ -145,7 +141,19 @@
   right: auto;
 }
 
+.navInput button {
+  width: 60px;
+  height: 33px;
+}
+
 .navInput input {
+  width: 681px;
+  height: 32px;
+}
+
+*/
+
+input {
   width: 681px;
   height: 32px;
 }
