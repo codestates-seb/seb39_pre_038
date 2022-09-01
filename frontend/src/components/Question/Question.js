@@ -2,10 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Question.module.css';
 
-function Question({ path = 'yhj96' }) {
+function Question({ path = '고유 아이디' }) {
   const navigate = useNavigate();
+  // Detail 경로로 이동하기 위한 함수
   const handleOnClick = () => {
-    navigate(`${path}`);
+    navigate(`/${path}`);
   };
   return (
     <div
