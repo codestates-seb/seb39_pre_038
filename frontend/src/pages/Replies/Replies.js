@@ -22,7 +22,7 @@ function Replies() {
 
   useEffect(() => {
     axios
-      .get('/questions/queId')
+      .get('/questions/')
       .then((res) => {
         console.log(res.data.data);
         setQueId(res.data.data.questionId);
