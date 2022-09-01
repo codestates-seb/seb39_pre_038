@@ -3,6 +3,7 @@
   gap: 0 16px;
   border-bottom: 1px solid hsl(210, 8%, 90%);
   padding: 32 16 16 16px;
+  cursor: pointer;
 }
 
 .content {
