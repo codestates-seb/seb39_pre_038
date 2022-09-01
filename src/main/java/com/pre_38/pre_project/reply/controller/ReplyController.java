@@ -44,7 +44,8 @@ public class ReplyController {
     //요구사항 3.4
     @GetMapping("/{question-id}/replies")
     public ResponseEntity getReplies(@PathVariable("question-id") @Positive long questionId,
-                                     @RequestParam @Positive int page, @RequestParam @Positive int size){
+                                     @RequestParam @Positive int page,
+                                     @RequestParam(required = false, defaultValue = "15") @Positive int size){
         Page<Reply> pageReplies = replyService.findReplies(questionId,page-1,size);
         List<Reply> replies = pageReplies.getContent();
         List<ReplyDto.response> responses = mapper.repliesToReplyResponses(replies);

@@ -41,7 +41,7 @@ public class QuestionController {
     //요구사항 2.1 + 2.6
     @GetMapping
     public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                       @Positive @RequestParam int size){
+                                       @Positive @RequestParam(required = false, defaultValue = "15") int size){
         Page<Question> pageQuestions = questionService.findQuestions(page-1,size);
         List<Question> questions = pageQuestions.getContent();
         List<QuestionDto.responses> responses = mapper.questionsToQuestionResponses(questions);
