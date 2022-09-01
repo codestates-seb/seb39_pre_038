@@ -54,7 +54,6 @@ public class ReplyController {
         );
     }
 
-
     // 요구사항 3.2
     @PostMapping("/replies")
     public ResponseEntity postReply(@Valid @RequestBody ReplyDto.Post replyPost){

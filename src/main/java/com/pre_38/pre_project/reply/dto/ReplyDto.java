@@ -1,5 +1,6 @@
 package com.pre_38.pre_project.reply.dto;
 
+import com.pre_38.pre_project.member.dto.MemberDtoresponse;
 import com.pre_38.pre_project.member.entity.Member;
 import com.pre_38.pre_project.question.entity.Question;
 import lombok.AllArgsConstructor;
@@ -44,7 +45,6 @@ public class ReplyDto {
         private long replyId;
         private String content;
         private LocalDateTime date;
-        private long votes;
-        private Member member;
+        private MemberDtoresponse member;
     }
 }

@@ -1,9 +1,11 @@
 package com.pre_38.pre_project.question.dto;
 
+import com.pre_38.pre_project.member.dto.MemberDtoresponse;
 import com.pre_38.pre_project.member.entity.Member;
 import com.pre_38.pre_project.reply.dto.ReplyDto;
 import com.pre_38.pre_project.reply.entity.Reply;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -51,9 +53,19 @@ public class QuestionDto {
         private String title;
         private String content;
         private LocalDateTime date;
-        private long votes;
-        private Member member;
+        private MemberDtoresponse member;
         //List<Reply>시 무한루프, 에러 발생, 엔티티 <-> DTO 계층 구분 확실히 해둘 것
         private List<ReplyDto.response> replies;
+    }
+
+    @Getter
+    @Builder
+    public static class responses{
+        private long questionId;
+        private String title;
+        private String content;
+        private LocalDateTime date;
+        private MemberDtoresponse member;
+        private long replies;
     }
 }
