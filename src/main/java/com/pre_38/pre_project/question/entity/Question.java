@@ -32,7 +32,7 @@ public class Question {
     private long votes;
 
     @ManyToOne// 게시글 : 회원 = N : 1 단방향
-    @JoinColumn(name="MEMBER_ID")
+    @JoinColumn(name="member_id")
     private Member member;
 
     //게시글 : 답글 = 1 : N 양방향

@@ -5,29 +5,30 @@ import com.pre_38.pre_project.exception.ExceptionCode;
 import com.pre_38.pre_project.member.dto.MemberSignupRequestDto;
 import com.pre_38.pre_project.member.entity.Member;
 import com.pre_38.pre_project.member.repository.MemberRepository;
-import com.pre_38.pre_project.question.entity.Question;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 
 @Service
-@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    public MemberService(MemberRepository memberRepository){
+        this.memberRepository = memberRepository;
+    }
+
     @Transactional
-    public void signup(MemberSignupRequestDto signupDto) {
+    public Member signup(MemberSignupRequestDto signupDto) {
         Member member = Member.builder()
                 .username(signupDto.getUsername())
                 .password(signupDto.getPassword())
                 .email(signupDto.getEmail())
+                .avatar(signupDto.getAvatar())
                 .build();
-        memberRepository.save(member);
+        return memberRepository.save(member);
     }
     //멤버 찾기용
     public Member findMember(String username){
@@ -41,6 +42,8 @@ public class MemberService {
         Member findMember =
                 optionalMember.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+
 
         return findMember;
     }
