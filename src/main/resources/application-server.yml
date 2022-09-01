@@ -7,5 +7,7 @@ spring:
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
   config:
     domain: http://pre-38-bucket.s3-website.ap-northeast-2.amazonaws.com
