@@ -19,9 +19,9 @@ function Nav() {
         <span />
       </div>
 
-      <SpriteIcon name="logo">
-        <Link to="/">Questions</Link>
-      </SpriteIcon>
+      <Link to="/">
+        <SpriteIcon name="logo">Questions</SpriteIcon>
+      </Link>
 
       <ol className={styles.liWrap}>
         <li>About</li>
