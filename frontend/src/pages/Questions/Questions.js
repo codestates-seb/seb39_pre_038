@@ -1,14 +1,13 @@
-import React, { useRef } from 'react';
-import Editor from '../../components/Editor/Editor';
-import './Questions.module.css';
+import React from 'react';
+import AsideNav from '../../components/AsideNav/AsideNav';
+import styles from './Questions.module.css';
 
 function Questions() {
-  const editorRef = useRef(null);
-
   return (
-    <React.Fragment key={null}>
-      <Editor type="write" ref={editorRef} />
-    </React.Fragment>
+    <main className={styles.container}>
+      <AsideNav />
+      <section className={styles.content}>정보</section>
+    </main>
   );
 }
 

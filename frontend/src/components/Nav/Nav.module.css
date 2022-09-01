@@ -5,9 +5,15 @@
   justify-content: center;
   align-items: center;
   gap: 0 8px;
+  border-top: 3px solid hsl(27, 90%, 55%);
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
+  top: 0;
+  background-color: #fdfdfd;
+  position: sticky;
 }
 
-.container ol {
+.liWrap {
   display: flex;
 }
 
@@ -105,17 +111,17 @@
   transform: rotate(45deg);
 }
 
-button {
+.navInput button {
   width: 60px;
   height: 33px;
 }
 
-ol {
+.liWrap {
   width: 228px;
   height: 37px;
 }
 
-li {
+.liWrap li {
   display: flex;
   align-items: center;
   font-size: 13px;
@@ -123,7 +129,7 @@ li {
   padding: 6px 12px;
 }
 
-input {
+.navInput {
   width: 681px;
   height: 32px;
 }
