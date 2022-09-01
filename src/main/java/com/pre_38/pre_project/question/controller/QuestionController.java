@@ -44,7 +44,7 @@ public class QuestionController {
                                        @Positive @RequestParam int size){
         Page<Question> pageQuestions = questionService.findQuestions(page-1,size);
         List<Question> questions = pageQuestions.getContent();
-        List<QuestionDto.response> responses = mapper.questionsToQuestionResponses(questions);
+        List<QuestionDto.responses> responses = mapper.questionsToQuestionResponses(questions);
         return new ResponseEntity<>(
                 new MultiResponseDto<>(responses,pageQuestions), HttpStatus.OK
         );

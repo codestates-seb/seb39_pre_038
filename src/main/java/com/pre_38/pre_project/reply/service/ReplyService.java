@@ -52,6 +52,8 @@ public class ReplyService {
         }
     }
 
+
+
     public Reply findVerifiedReply(long replyId){
         //Id 값으로 검색
         Optional<Reply> optionalReply = replyRepository.findById(replyId);
