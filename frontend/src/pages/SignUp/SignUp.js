@@ -25,12 +25,12 @@ function SignUp() {
           Earn reputation and badges
         </div>
 
-        <p>
+        <div className={styles.textFooter}>
           <div>
             Collaborate and share knowledge with a private group for FREE.
           </div>
           <em>Get Stack Overflow for Teams free for up to 50 users.</em>
-        </p>
+        </div>
       </section>
 
       <section className={styles.btnContent}>
