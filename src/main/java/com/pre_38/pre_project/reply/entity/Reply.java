@@ -31,7 +31,7 @@ public class Reply {
 
     // 답글 : 게시판 = N : 1 양방향
     @ManyToOne
-    @JoinColumn(name = "QUESTION_ID")
+    @JoinColumn(name = "question_id")
     private Question question;
 
     public void setQuestion(Question question){
@@ -42,7 +42,7 @@ public class Reply {
 
     // 답글 : 회원 = 1 : N 단방향
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     public void setMember(Member member){

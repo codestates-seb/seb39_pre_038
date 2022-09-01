@@ -8,14 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberSignupRequestDto {
-    private Long memberId;
     private String username;
     private String password;
     private String email;
-
-    public MemberSignupRequestDto(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
+    private String avatar;
 }
