@@ -1,0 +1,46 @@
+#version: 0.0
+#os: linux
+#
+#files:
+#  - source: /
+#    destination: /home/ubuntu/build
+#
+#hooks:
+#  BeforeInstall:
+#    - location: scripts/server_clear.sh
+#      timeout: 3000
+#      runas: ubuntu
+#  AfterInstall:
+#    - location: scripts/initialize.sh
+#      timeout: 3000
+#      runas: ubuntu
+#  ApplicationStart:
+#    - location: scripts/server_start.sh
+#      timeout: 3000
+#      runas: ubuntu
+#  ApplicationStop:
+#    - location: scripts/server_stop.sh
+#      timeout: 3000
+#      runas: ubuntu
+
+
+# 빌드 파일 배포 및 실행 튜토리얼
+
+version: 0.0
+os: linux
+files:
+  - source:  /
+    destination: /home/ubuntu/seb39_pre_038_new
+    overwrite: yes
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+
+hooks:
+  ApplicationStart:
+    - location: scripts/deploy.sh
+      timeout: 300
+      runas: ubuntu
