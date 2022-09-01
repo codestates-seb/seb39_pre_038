@@ -53,7 +53,13 @@ public class ReplyService {
     }
 
     public Reply findVerifiedReply(long replyId){
+<<<<<<< HEAD
         Optional<Reply> optionalReply = replyRepository.findById(replyId);
+=======
+        //Id 값으로 검색
+        Optional<Reply> optionalReply = replyRepository.findById(replyId);
+        //존재 여부 확인
+>>>>>>> main
         Reply findReply =
                 optionalReply.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.REPLY_NOT_FOUND));

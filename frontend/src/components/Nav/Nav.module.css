@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: center;
   gap: 0 8px;
+<<<<<<< HEAD
   border-top: 3px solid hsl(27, 90%, 55%);
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
@@ -14,6 +15,11 @@
 }
 
 .liWrap {
+=======
+}
+
+.container ol {
+>>>>>>> main
   display: flex;
 }
 
@@ -111,17 +117,29 @@
   transform: rotate(45deg);
 }
 
+<<<<<<< HEAD
 .navInput button {
+=======
+button {
+>>>>>>> main
   width: 60px;
   height: 33px;
 }
 
+<<<<<<< HEAD
 .liWrap {
+=======
+ol {
+>>>>>>> main
   width: 228px;
   height: 37px;
 }
 
+<<<<<<< HEAD
 .liWrap li {
+=======
+li {
+>>>>>>> main
   display: flex;
   align-items: center;
   font-size: 13px;
@@ -129,7 +147,11 @@
   padding: 6px 12px;
 }
 
+<<<<<<< HEAD
 .navInput {
+=======
+input {
+>>>>>>> main
   width: 681px;
   height: 32px;
 }

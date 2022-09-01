@@ -38,10 +38,14 @@
     "react-hooks/exhaustive-deps": ["warn"],
     "react/jsx-props-no-spreading": ["warn"],
     "comma-dangle": ["error"],
+<<<<<<< HEAD
     "no-console": ["warn"],
     "import/no-extraneous-dependencies": [
       "off",
       { "packageDir": "node_modules" }
     ]
+=======
+    "no-console": ["warn"]
+>>>>>>> main
   }
 }

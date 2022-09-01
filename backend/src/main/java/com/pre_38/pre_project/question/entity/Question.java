@@ -31,10 +31,18 @@ public class Question {
     @Column(nullable = false)
     private long votes;
 
+<<<<<<< HEAD
     @OneToOne// 1:1 단방향
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
+=======
+    @ManyToOne// 게시글 : 회원 = N : 1 단방향
+    @JoinColumn(name="MEMBER_ID")
+    private Member member;
+
+    //게시글 : 답글 = 1 : N 양방향
+>>>>>>> main
     //Question 삭제 -> 해당 Question의 Reply도 삭제
     @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}) // 1:N 양방향
     private List<Reply> replies = new ArrayList<>();
