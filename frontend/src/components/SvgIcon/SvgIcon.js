@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SvgIcon({ name = '' }) {
+function SvgIcon({ name = '', width = 32, height = 37 }) {
   const IconType = {
     gitHub: (
       <svg width={18} height={18} viewBox="0 0 18 18">
@@ -39,7 +39,7 @@ function SvgIcon({ name = '' }) {
       </svg>
     ),
     stackOverFlow: (
-      <svg width={32} height={37} viewBox="0 0 32 37">
+      <svg width={width} height={height} viewBox="0 0 32 37">
         <path fill="#BCBBBB" d="M26 33v-9h4v13H0V24h4v9h22Z" />
         <path
           fill="#F48024"
