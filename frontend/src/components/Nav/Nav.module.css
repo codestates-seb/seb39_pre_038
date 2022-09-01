@@ -129,6 +129,26 @@
 }
 
 .navInput {
+  position: relative;
+}
+
+.navInput input {
+  padding-left: 30px;
+  border: 1px solid hsl(210, 8%, 75%);
+  border-radius: 3px;
+}
+
+.navInput svg {
+  position: absolute;
+  left: 8px;
+  top: 6.5px;
+  right: auto;
+}
+
+.navInput::placeholder {
+}
+
+.navInput input {
   width: 681px;
   height: 32px;
 }

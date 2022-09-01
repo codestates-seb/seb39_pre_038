@@ -35,7 +35,11 @@ function Nav() {
         <li>For Teams</li>
       </ol>
 
-      <input className={styles.navInput} type="text" />
+      <div className={styles.navInput}>
+        <input type="text" placeholder="Search..." />
+        <SvgIcon name="serach" />
+      </div>
+
       <Link to="/login">
         <button className={styles.loginBtn} type="button">
           Login
