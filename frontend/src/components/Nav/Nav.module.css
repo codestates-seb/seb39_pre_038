@@ -137,7 +137,7 @@
   display: none;
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 980px) {
   .liWrap {
     width: 60px;
   }
@@ -149,7 +149,7 @@
   }
 }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: 640px) {
   .logo {
     display: none;
   }
