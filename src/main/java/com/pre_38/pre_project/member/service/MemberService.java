@@ -24,7 +24,6 @@ public class MemberService {
     public void signup(MemberSignupRequestDto signupDto) {
         Member member = Member.builder()
                 .username(signupDto.getUsername())
-                .password(signupDto.getPassword())
                 .email(signupDto.getEmail())
                 .build();
         memberRepository.save(member);

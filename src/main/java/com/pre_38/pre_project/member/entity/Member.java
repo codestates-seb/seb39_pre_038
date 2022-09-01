@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@ToString
 @Entity
 public class Member {
     @Id
@@ -18,23 +20,30 @@ public class Member {
     @Column(nullable = false, length = 20)
     private String username;
 
-    @Column(nullable = false)
-    private String password;
-
     //@Column(nullable = false)
     private String avatar;
 
     @Column(nullable = false)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;
+
+    private String refreshToken;
+
     //@Column(nullable = false)
     private LocalDateTime date = LocalDateTime.now();
 
     @Builder
-    public Member(Long memberId, String username, String password, String email) {
+    public Member(Long memberId, String username, String avatar, String email, Role role, AuthProvider authProvider) {
         this.memberId = memberId;
         this.username = username;
-        this.password = password;
+        this.avatar = avatar;
         this.email = email;
+        this.authProvider = authProvider;
+        this.role = role;
     }
 }
