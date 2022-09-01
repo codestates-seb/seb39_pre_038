@@ -8,46 +8,28 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
-
     private String username;
-
-    private String password;
-
     //@Column(nullable = false)
     private String avatar;
-
     private String email;
-
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;
+    private String refreshToken;
     //@Column(nullable = false)
     private LocalDateTime date = LocalDateTime.now();
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
-
     @Builder
-    public Member(Long memberId, String username, String password, String email) {
-        this.memberId = memberId;
-        this.username = username;
-        this.password = password;
+    public Member(String email, String avatar, Role role, AuthProvider authProvider) {
         this.email = email;
-    }
-
-    public Member(Long memberId, String username, String avatar, String password, String email) {
-        this.memberId = memberId;
+        this.role = role;
         this.avatar = avatar;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
-    public String getRoleValue() {
-        return this.role.getValue();
+        this.authProvider = authProvider;
     }
 }

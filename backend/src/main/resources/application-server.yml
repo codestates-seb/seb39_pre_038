@@ -9,3 +9,28 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   config:
     domain: http://pre-38-bucket.s3-website.ap-northeast-2.amazonaws.com
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 871994075923-dir966r6ulc8nmfnf3fp6l8limi0523a.apps.googleusercontent.com
+            clientSecret: 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
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+          github:
+            clientId: 213cf81d8d9d24801ccf
+            clientSecret: 33ae3b80f3f91c106ca89b382986e7646adb6b48
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - user:email
+              - read:user
+app:
+  auth:
+    token:
+      secret-key: "W6xyKGQJNftDweyruDObSf1eM6noun00"
+      refresh-cookie-key: "refresh"
+  oauth2:
+    authorizedRedirectUri: "http://localhost:3000/oauth2/redirect"
