@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Questions />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/singup" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </React.Fragment>
   );

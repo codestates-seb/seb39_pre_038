@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Nav.module.css';
+import SvgIcon from '../SvgIcon/SvgIcon';
 import SpriteIcon from '../SpriteIcon/SpriteIcon';
 
 function Nav() {
@@ -19,9 +20,14 @@ function Nav() {
         <span />
       </div>
 
-      <SpriteIcon name="logo">
-        <Link to="/">Questions</Link>
-      </SpriteIcon>
+      <Link to="/">
+        <div className={styles.logo}>
+          <SpriteIcon name="logo" />
+        </div>
+        <div className={styles.svgIcon}>
+          <SvgIcon name="stackOverFlow" width={25} height={30} />
+        </div>
+      </Link>
 
       <ol className={styles.liWrap}>
         <li>About</li>
@@ -29,12 +35,20 @@ function Nav() {
         <li>For Teams</li>
       </ol>
 
-      <input className={styles.navInput} type="text" />
+      <div className={styles.navInput}>
+        <input type="text" placeholder="Search..." />
+        <SvgIcon name="serach" />
+      </div>
+
       <Link to="/login">
-        <button type="button">Login</button>
+        <button className={styles.loginBtn} type="button">
+          Login
+        </button>
       </Link>
-      <Link to="/singup">
-        <button type="button">SignUp</button>
+      <Link to="/signup">
+        <button className={styles.signBtn} type="button">
+          SignUp
+        </button>
       </Link>
     </nav>
   );

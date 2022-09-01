@@ -20,3 +20,12 @@
   padding: 24px;
   */
 }
+
+@media all and (max-width: 640px) {
+  .container {
+    justify-content: center;
+  }
+  .content {
+    width: 100%;
+  }
+}
