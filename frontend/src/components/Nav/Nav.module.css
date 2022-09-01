@@ -13,10 +13,6 @@
   position: sticky;
 }
 
-.liWrap {
-  display: flex;
-}
-
 .hamberger {
   display: flex;
   width: 48px;
@@ -117,8 +113,10 @@
 }
 
 .liWrap {
+  display: flex;
   width: 228px;
   height: 37px;
+  justify-content: center;
 }
 
 .liWrap li {
@@ -127,9 +125,35 @@
   font-size: 13px;
   color: #525960;
   padding: 6px 12px;
+  flex-shrink: 0;
 }
 
 .navInput {
   width: 681px;
   height: 32px;
+}
+
+.svgIcon {
+  display: none;
+}
+
+@media all and (max-width: 768px) {
+  .liWrap {
+    width: 60px;
+  }
+  .liWrap li:nth-child(1) {
+    display: none;
+  }
+  .liWrap li:nth-child(3) {
+    display: none;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .logo {
+    display: none;
+  }
+  .svgIcon {
+    display: block;
+  }
 }

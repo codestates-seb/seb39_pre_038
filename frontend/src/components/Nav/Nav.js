@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Nav.module.css';
+import SvgIcon from '../SvgIcon/SvgIcon';
 import SpriteIcon from '../SpriteIcon/SpriteIcon';
 
 function Nav() {
@@ -20,7 +21,12 @@ function Nav() {
       </div>
 
       <Link to="/">
-        <SpriteIcon name="logo">Questions</SpriteIcon>
+        <div className={styles.logo}>
+          <SpriteIcon name="logo" />
+        </div>
+        <div className={styles.svgIcon}>
+          <SvgIcon name="stackOverFlow" width={25} height={30} />
+        </div>
       </Link>
 
       <ol className={styles.liWrap}>
