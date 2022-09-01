@@ -145,9 +145,6 @@
   right: auto;
 }
 
-.navInput::placeholder {
-}
-
 .navInput input {
   width: 681px;
   height: 32px;
