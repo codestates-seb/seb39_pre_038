@@ -4,6 +4,7 @@ import Nav from './components/Nav/Nav';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import Questions from './pages/Questions/Questions';
+import Replies from './pages/Replies/Replies';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Questions />} />
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SignUp />} />
+        <Route path="/replies" element={<Replies />} />
       </Routes>
     </React.Fragment>
   );
