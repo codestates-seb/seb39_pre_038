@@ -37,10 +37,14 @@ function Nav() {
 
       <input className={styles.navInput} type="text" />
       <Link to="/login">
-        <button type="button">Login</button>
+        <button className={styles.loginBtn} type="button">
+          Login
+        </button>
       </Link>
-      <Link to="/singup">
-        <button type="button">SignUp</button>
+      <Link to="/signup">
+        <button className={styles.signBtn} type="button">
+          SignUp
+        </button>
       </Link>
     </nav>
   );
