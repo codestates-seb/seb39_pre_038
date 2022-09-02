@@ -1,6 +1,5 @@
 .container {
   background-color: hsl(210, 8%, 95%);
-  height: 100%;
 }
 
 .content {
@@ -12,7 +11,6 @@
 }
 
 .contentHeader {
-  height: 130px;
   background-image: url(https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368);
   background-repeat: no-repeat;
   background-position: right bottom;
@@ -76,7 +74,6 @@ input {
   .contentHeader {
     background-image: none;
     align-items: center;
-    height: 70px;
   }
 }
 
