@@ -1,10 +1,12 @@
 package com.pre_38.pre_project.reply.dto;
 
+import com.pre_38.pre_project.member.dto.MemberDtoresponse;
 import com.pre_38.pre_project.member.entity.Member;
 import com.pre_38.pre_project.question.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -17,7 +19,8 @@ public class ReplyDto {
     public static class Post {
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String content;
-        private String username;
+        @Email
+        private String email;
         @NotNull
         private long questionId;
     }
@@ -44,7 +47,6 @@ public class ReplyDto {
         private long replyId;
         private String content;
         private LocalDateTime date;
-        private long votes;
-        private Member member;
+        private MemberDtoresponse member;
     }
 }
