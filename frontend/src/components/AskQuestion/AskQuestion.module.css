@@ -1,0 +1,25 @@
+.container {
+  max-width: 1264px;
+  background-color: hsl(210, 8%, 95%);
+  margin: 0 auto;
+}
+
+.content {
+  min-height: 750px;
+  overflow: visible;
+}
+
+.contentHeader {
+  height: 130px;
+  background-image: url(https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  display: flex;
+  padding: 24px 0px;
+}
+
+.contentHeader h1 {
+  font-size: 27px;
+  color: #232629;
+  font-family: inherit;
+}
