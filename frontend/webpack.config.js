@@ -32,7 +32,8 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html'),
+      template: path.resolve(__dirname, 'public', 'index.html'),
+      favicon: path.resolve(__dirname, 'public', 'stack-overflow.png'),
       filename: 'index.html',
     }),
     new MiniCssExtractPlugin(),
