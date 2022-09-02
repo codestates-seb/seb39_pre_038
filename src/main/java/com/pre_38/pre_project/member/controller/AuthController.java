@@ -21,7 +21,8 @@ public class AuthController {
     public ResponseEntity refreshToken(HttpServletRequest request,
                                        HttpServletResponse response,
                                        @RequestBody String accessToken) {
-        return ResponseEntity.ok().body(
-                authService.refreshToken(request, response, accessToken));
+        return ResponseEntity
+                .ok()
+                .body(authService.refreshToken(request, response, accessToken));
     }
 }

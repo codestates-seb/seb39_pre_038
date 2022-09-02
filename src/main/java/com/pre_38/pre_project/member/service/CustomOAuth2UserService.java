@@ -9,6 +9,7 @@ import com.pre_38.pre_project.member.support.CustomUserDetails;
 import com.pre_38.pre_project.member.support.info.OAuth2UserInfo;
 import com.pre_38.pre_project.member.support.info.OAuth2UserInfoFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -19,7 +20,7 @@ import java.util.Optional;
 
 import static java.time.LocalDateTime.now;
 
-//@Log4j2
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {

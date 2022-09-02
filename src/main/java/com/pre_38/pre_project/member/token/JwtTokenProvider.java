@@ -43,7 +43,7 @@ public class JwtTokenProvider {
         Date validity = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_LENGTH);
         CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
 
-        String userId = user.getName();
+        String userId = user.getUsername();
         String role = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -52,7 +52,6 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .setSubject(userId)
                 .claim(AUTHORITIES_KEY, role)
-                .setIssuer("debrains")
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .compact();
@@ -64,7 +63,6 @@ public class JwtTokenProvider {
 
         String refreshToken = Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-                .setIssuer("debrains")
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .compact();
@@ -83,7 +81,7 @@ public class JwtTokenProvider {
 
     private void saveRefreshToken(Authentication authentication, String refreshToken) {
         CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-        Long id = Long.valueOf(user.getName());
+        Long id = Long.valueOf(user.getUsername());
 
         memberRepository.updateRefreshToken(id, refreshToken);
     }
@@ -95,7 +93,7 @@ public class JwtTokenProvider {
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
-        CustomUserDetails principal = new CustomUserDetails(Long.valueOf(claims.getSubject()), "", "", authorities);
+        CustomUserDetails principal = new CustomUserDetails(Long.valueOf(claims.getSubject()), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
