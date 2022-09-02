@@ -22,7 +22,7 @@
   },
   "ignorePatterns": ["build", "node_modules", "webpack.confing.js"],
   "rules": {
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": ["off"],
     "quotes": [
       "error",
       "single",
@@ -38,6 +38,10 @@
     "react-hooks/exhaustive-deps": ["warn"],
     "react/jsx-props-no-spreading": ["warn"],
     "comma-dangle": ["error"],
-    "no-console": ["warn"]
+    "no-console": ["warn"],
+    "import/no-extraneous-dependencies": [
+      "off",
+      { "packageDir": "node_modules" }
+    ]
   }
 }
