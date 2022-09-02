@@ -44,7 +44,8 @@ public class ReplyController {
     //요구사항 3.4
     @GetMapping("/{question-id}/replies")
     public ResponseEntity getReplies(@PathVariable("question-id") @Positive long questionId,
-                                     @RequestParam @Positive int page, @RequestParam @Positive int size){
+                                     @RequestParam @Positive int page,
+                                     @RequestParam(required = false, defaultValue = "15") @Positive int size){
         Page<Reply> pageReplies = replyService.findReplies(questionId,page-1,size);
         List<Reply> replies = pageReplies.getContent();
         List<ReplyDto.response> responses = mapper.repliesToReplyResponses(replies);
@@ -54,13 +55,12 @@ public class ReplyController {
         );
     }
 
-
     // 요구사항 3.2
     @PostMapping("/replies")
     public ResponseEntity postReply(@Valid @RequestBody ReplyDto.Post replyPost){
         Reply reply = mapper.replyPostToReply(replyPost);
 
-        Member member = memberService.findMember(replyPost.getUsername());
+        Member member = memberService.findMember(replyPost.getEmail());
         reply.setMember(member);
 
         Question question = questionService.findQuestion(replyPost.getQuestionId());
