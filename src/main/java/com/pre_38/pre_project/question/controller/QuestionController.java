@@ -41,10 +41,10 @@ public class QuestionController {
     //요구사항 2.1 + 2.6
     @GetMapping
     public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                       @Positive @RequestParam int size){
+                                       @Positive @RequestParam(required = false, defaultValue = "15") int size){
         Page<Question> pageQuestions = questionService.findQuestions(page-1,size);
         List<Question> questions = pageQuestions.getContent();
-        List<QuestionDto.response> responses = mapper.questionsToQuestionResponses(questions);
+        List<QuestionDto.responses> responses = mapper.questionsToQuestionResponses(questions);
         return new ResponseEntity<>(
                 new MultiResponseDto<>(responses,pageQuestions), HttpStatus.OK
         );
@@ -55,7 +55,7 @@ public class QuestionController {
     @PostMapping("/ask")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
         Question question = mapper.questionPostToQuestion(questionPost);
-        Member member = memberService.findMember(questionPost.getUsername());
+        Member member = memberService.findMember(questionPost.getEmail());
         question.setMember(member);
 
         Question posted = questionService.createQuestion(question);

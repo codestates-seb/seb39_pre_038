@@ -1,0 +1,86 @@
+.content {
+  max-width: 1100px;
+  width: calc(100% - 164px);
+  border: 1px solid hsl(210, 8%, 85%);
+  border-left-width: 1px;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  border-right-width: 0;
+}
+
+.titleWrap {
+  padding: 24px 24px 0px 24px;
+}
+
+.mainber {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.mainber h1 {
+  font-size: 27px;
+  color: #232629;
+}
+
+button {
+  padding: 8px 10, 4px;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid transparent;
+  font-family: inherit;
+  text-align: center;
+}
+
+.mainber button {
+  width: 98px;
+  height: 38px;
+  font-family: inherit;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(200, 100%, 52%);
+  border-color: hsl(205, 41%, 63%);
+  box-shadow: inset 0 1px 0 0 hsl(0deg, 0%, 100% / 70%);
+}
+
+.subber {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+}
+
+.subber em {
+  font-size: 17px;
+  color: #232629;
+  font-family: inherit;
+}
+
+.subber button {
+  width: 68px;
+  height: 35px;
+  color: hsl(205, 47%, 42%);
+  background-color: hsl(205, 46%, 92%);
+  border-color: hsl(205, 41%, 63%);
+  box-shadow: inset 0 1px 0 0 hsl(0deg, 0%, 100% / 70%);
+}
+
+.mainber button:hover {
+  background-color: hsl(200, 100%, 40%);
+}
+
+.subber button:hover {
+  background-color: hsl(206, 100%, 97%);
+}
+
+.questions {
+  border-top: 1px solid hsl(210, 8%, 85%);
+}
+
+@media all and (max-width: 640px) {
+  .container {
+    justify-content: center;
+  }
+  .content {
+    width: 100%;
+  }
+}

@@ -26,11 +26,11 @@
   font-size: 27px;
 }
 
-.textContent p {
+.textFooter {
   font-size: 13px;
 }
 
-.textContent p em {
+.textFooter em {
   color: #0074cc;
 }
 
