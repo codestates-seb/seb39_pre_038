@@ -6,9 +6,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@ToString
 @Entity
 public class Member {
     @Id
@@ -18,24 +19,20 @@ public class Member {
     @Column(nullable = false, length = 20)
     private String username;
 
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String avatar;
 
     @Column(nullable = false)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;
+
+    private String refreshToken;
+
     @Column(nullable = false)
     private LocalDateTime date = LocalDateTime.now();
-
-    @Builder
-    public Member(Long memberId, String username, String password, String email, String avatar) {
-        this.memberId = memberId;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.avatar = avatar;
-    }
 }

@@ -1,0 +1,78 @@
+aside {
+  width: 164px;
+  height: calc(100vh - 50px);
+}
+
+.container {
+  top: 50px;
+  position: sticky;
+  font-family: initial;
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+}
+
+.container ul {
+  font-size: 11px;
+  color: #6a737c;
+  padding: 8px;
+}
+
+.container li {
+  width: 100%;
+  cursor: pointer;
+  font-size: 13px;
+  color: #525960;
+  padding: 8px 6px 8px 0px;
+}
+
+ul div {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  background-color: hsl(27, 90%, 55%);
+  border-radius: 4px;
+}
+
+.icon :nth-child(1) {
+  position: absolute;
+  right: 2px;
+}
+
+.icon :nth-child(2) {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+}
+
+ul li:nth-child(1) {
+  display: flex;
+  align-items: center;
+  gap: 0 6px;
+}
+
+nav ul:nth-child(1) li:nth-child(2) {
+  height: 34px;
+  padding-left: 24px;
+}
+
+nav ul:nth-child(1) li:nth-child(3) {
+  height: 34px;
+  padding-left: 24px;
+}
+
+nav ul:nth-child(1) li:nth-child(4) {
+  height: 34px;
+  padding-left: 24px;
+}
+
+@media all and (max-width: 640px) {
+  aside {
+    display: none;
+  }
+}
