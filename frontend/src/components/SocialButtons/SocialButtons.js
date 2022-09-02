@@ -2,11 +2,11 @@ import React from 'react';
 import styles from './SocialButtons.module.css';
 import SvgIcon from '../SvgIcon/SvgIcon';
 import { storge } from '../../utils/store';
-import { GITHUB_CLIEND_ID } from '../../env';
+import { GITHUB_CLIEND_ID, GOOGLE_CLIEND_ID } from '../../env';
 
 const api = {
   google: {
-    url: `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIEND_ID}`,
+    url: `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIEND_ID}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile&redirect_uri=http://127.0.0.1:3000/question`,
   },
   github: {
     url: `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIEND_ID}`,
