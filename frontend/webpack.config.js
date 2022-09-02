@@ -16,6 +16,7 @@ module.exports = {
     filename: '[name].js',
     clean: true,
   },
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -38,6 +39,12 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
+    proxy: {
+      '/questions': {
+        target:
+          'http://ec2-13-124-94-129.ap-northeast-2.compute.amazonaws.com:8080',
+      },
+    },
   },
   optimization: {
     minimizer: [new CssMinimizerPlugin()],

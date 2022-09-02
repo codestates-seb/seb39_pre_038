@@ -55,7 +55,7 @@ public class QuestionController {
     @PostMapping("/ask")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
         Question question = mapper.questionPostToQuestion(questionPost);
-        Member member = memberService.findMember(questionPost.getUsername());
+        Member member = memberService.findMember(questionPost.getEmail());
         question.setMember(member);
 
         Question posted = questionService.createQuestion(question);

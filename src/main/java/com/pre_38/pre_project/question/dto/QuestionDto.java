@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -25,7 +26,8 @@ public class QuestionDto {
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String content;
 
-        private String username;
+        @Email
+        private String email;
     }
 
     @Getter
