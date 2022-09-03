@@ -35,10 +35,8 @@ public class QuestionDto {
     public static class Patch{
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String title;
-
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String content;
-
         @Email
         private String email;
     }
