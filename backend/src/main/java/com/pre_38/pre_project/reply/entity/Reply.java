@@ -2,6 +2,8 @@ package com.pre_38.pre_project.reply.entity;
 
 import com.pre_38.pre_project.member.entity.Member;
 import com.pre_38.pre_project.question.entity.Question;
+import com.pre_38.pre_project.member.entity.Member;
+import com.pre_38.pre_project.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,6 +38,8 @@ public class Reply {
 
     public void setQuestion(Question question){
         this.question = question;
+        if(!question.getReplies().contains(this))
+            question.getReplies().add(this);
         if(!question.getReplies().contains(this))
             question.getReplies().add(this);
     }
