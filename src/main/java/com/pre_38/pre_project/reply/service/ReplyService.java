@@ -2,7 +2,9 @@ package com.pre_38.pre_project.reply.service;
 
 import com.pre_38.pre_project.exception.BusinessLogicException;
 import com.pre_38.pre_project.exception.ExceptionCode;
+import com.pre_38.pre_project.member.service.MemberService;
 import com.pre_38.pre_project.question.entity.Question;
+import com.pre_38.pre_project.question.service.QuestionService;
 import com.pre_38.pre_project.reply.entity.Reply;
 import com.pre_38.pre_project.reply.repository.ReplyRepository;
 import org.springframework.data.domain.Page;
@@ -19,9 +21,12 @@ import java.util.Optional;
 public class ReplyService {
 
     private final ReplyRepository replyRepository;
+    private final QuestionService questionService;
 
-    public ReplyService(ReplyRepository replyRepository){
+    public ReplyService(ReplyRepository replyRepository,
+                        QuestionService questionService){
         this.replyRepository = replyRepository;
+        this.questionService = questionService;
     }
 
     // 요구사항 3.1 + 3.4
@@ -38,10 +43,21 @@ public class ReplyService {
     }
 
     // 요구사항 3.3
-    public void deleteReply(long replyId){
+    public void deleteReply(long questionId, long replyId){
+        questionService.findVerifiedQuestion(questionId);
         Reply findReply = findVerifiedReply(replyId);
 
         replyRepository.delete(findReply);
+    }
+
+    public Reply updateReply(Reply reply, long questionId, long replyId){
+        questionService.findVerifiedQuestion(questionId);
+        Reply findReply = findVerifiedReply(replyId);
+
+        Optional.ofNullable(reply.getContent())
+                .ifPresent(content -> findReply.setContent(content));
+
+        return replyRepository.save(findReply);
     }
 
     //댓글의 중복을 확인하는 메서드

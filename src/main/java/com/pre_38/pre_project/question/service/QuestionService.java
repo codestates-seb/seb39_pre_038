@@ -49,6 +49,18 @@ public class QuestionService {
         return findVerifiedQuestion(questionId);
     }
 
+    public Question updateQuestion(Question question, long questionId){
+        //새로운 값으로 치환
+        Question findQuestion = findVerifiedQuestion(questionId);
+
+        Optional.ofNullable(question.getTitle())
+                .ifPresent(title -> findQuestion.setTitle(title));
+        Optional.ofNullable(question.getContent())
+                .ifPresent(content -> findQuestion.setContent(content));
+
+        return questionRepository.save(findQuestion);
+    }
+
 
     //중복 확인하는 메서드
     private void verifyExistsTitle(String title){

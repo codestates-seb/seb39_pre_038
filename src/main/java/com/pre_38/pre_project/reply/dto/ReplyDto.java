@@ -28,16 +28,10 @@ public class ReplyDto {
     @Getter
     @AllArgsConstructor
     public static class Patch{
-        private long replyId;
-
         @NotEmpty(message = "내용을 입력하셔야 합니다.")
         private String content;
-
-        private String name;
-
-    public void setReplyId(long replyId){
-        this.replyId = replyId;
-        }
+        @Email
+        private String email;
     }
 
 
