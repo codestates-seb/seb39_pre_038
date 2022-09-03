@@ -52,6 +52,8 @@ public class QuestionService {
     public Question updateQuestion(Question question, long questionId){
         //새로운 값으로 치환
         Question findQuestion = findVerifiedQuestion(questionId);
+        if(!question.getMember().getEmail().equals(findQuestion.getMember().getEmail()))
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
 
         Optional.ofNullable(question.getTitle())
                 .ifPresent(title -> findQuestion.setTitle(title));
