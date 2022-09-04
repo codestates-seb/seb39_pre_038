@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 /*
 페이지네이션 기능 체크리스트
@@ -13,28 +13,55 @@ UI 구성 요소
 4. 맨 펏 페이지 ... 마지막 페이지 - 5개
 */
 
-const dummyData = [];
-for (let i = 0; i < 100; i += 1) {
-  const item = {
-    title: `Dummy Page ${i}`,
-    content: `Dummy Page Content ${i}`,
-  };
-  dummyData.push(item);
-}
+/*
+        total={total}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+*/
 
-function Pagination() {
-  const [data] = useState(dummyData);
+function Pagination({ total, currentPage }) {
+  const CreatePage = () => {
+    const page = [];
+    /*
+    1. total의 개수가 8개 이하면 그냥 8개를 뿌린다.
+    2. total의 개수가 9개 이상이고 현재 페이지가 4이하라면 [1][2][3][4][5] ... [tail]
+    3. total의 개수가 9개 이상이고 현재 페이지가 마지막 페이지 - 4 이상이면 [head] ... [tail-4][tail-3][tail-2][tail-1][tail]
+    4. total의 개수가 9개 이상이고 현재 페이지가 4보다 크고 total - 3 보다 작으면 [head] ... [current += 2] ... [tail]
+   */
+    if (total <= 8) {
+      for (let i = 0; i < total; i += 1) {
+        page.push(<button type="button">{`${i + 1}`}</button>);
+      }
+      return page;
+    }
 
-  const Pages = () => {
-    const count = parseInt(data.length / 15, 10);
-    const $el = [];
-    for (let i = 0; i < count; i += 1) $el.push(<div>{`${i + 1}`}</div>);
-    return $el;
+    if (total >= 9 && currentPage <= 4) {
+      for (let i = 0; i < 5; i += 1) {
+        page.push(<button type="button">{`${i + 1}`}</button>);
+      }
+      page.push(<span>...</span>, <button type="button">{`${total}`}</button>);
+      return page;
+    }
+
+    if (total >= 9 && currentPage > total - 4) {
+      page.push(<button type="button">{`${1}`}</button>, <span>...</span>);
+      for (let i = 4; i >= 0; i -= 1) {
+        page.push(<button type="button">{`${total - i}`}</button>);
+      }
+      return page;
+    }
+
+    page.push(<button type="button">{`${1}`}</button>, <span>...</span>);
+    for (let i = currentPage - 2; i <= currentPage + 2; i += 1) {
+      page.push(<button type="button">{`${i}`}</button>);
+    }
+    page.push(<span>...</span>, <button type="button">{`${total}`}</button>);
+    return page;
   };
 
   return (
-    <div style={{ display: 'flex', gap: '10px 10px' }}>
-      <Pages />
+    <div>
+      <CreatePage />
     </div>
   );
 }
