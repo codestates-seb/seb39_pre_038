@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Nav.module.css';
 import SvgIcon from '../SvgIcon/SvgIcon';
@@ -19,6 +19,36 @@ import SpriteIcon from '../SpriteIcon/SpriteIcon';
 */
 
 function Nav() {
+  const [isLogin] = useState(false);
+
+  const createUserScreen = () => {
+    return (
+      <React.Fragment key={null}>
+        <img className={styles.avatar} alt="avatar" />
+        <button className={styles.signBtn} type="button">
+          Logout
+        </button>
+      </React.Fragment>
+    );
+  };
+
+  const createGuestScreen = () => {
+    return (
+      <React.Fragment key={null}>
+        <Link to="/login">
+          <button className={styles.loginBtn} type="button">
+            Login
+          </button>
+        </Link>
+        <Link to="/signup">
+          <button className={styles.signBtn} type="button">
+            SignUp
+          </button>
+        </Link>
+      </React.Fragment>
+    );
+  };
+
   return (
     <nav className={styles.container}>
       <Link to="/">
@@ -37,17 +67,7 @@ function Nav() {
       </ol>
 
       <input type="text" placeholder="Search..." />
-
-      <Link to="/login">
-        <button className={styles.loginBtn} type="button">
-          Login
-        </button>
-      </Link>
-      <Link to="/signup">
-        <button className={styles.signBtn} type="button">
-          SignUp
-        </button>
-      </Link>
+      {isLogin ? createUserScreen() : createGuestScreen()}
     </nav>
   );
 }
