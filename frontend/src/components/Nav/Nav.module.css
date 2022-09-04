@@ -154,7 +154,7 @@
 */
 
 input {
-  width: 681px;
+  max-width: 681px;
   height: 32px;
 }
 
@@ -197,6 +197,11 @@ button {
 
 .signBtn:hover {
   background-color: hsl(200, 100%, 40%);
+}
+
+.avatar {
+  width: 33px;
+  height: 33px;
 }
 
 @media all and (max-width: 980px) {
