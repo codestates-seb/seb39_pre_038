@@ -19,9 +19,20 @@ UI 구성 요소
         setCurrentPage={setCurrentPage}
 */
 
-function Pagination({ total, currentPage }) {
+function Pagination({ total, currentPage, setCurrentPage }) {
   const CreatePage = () => {
     const page = [];
+    const head = (
+      <button key={1} type="button" value={1}>
+        {1}
+      </button>
+    );
+    const tail = (
+      <button key={total} type="button" value={total}>
+        {total}
+      </button>
+    );
+    const ellipsis = <span key="ellipsis">...</span>;
     /*
     1. total의 개수가 8개 이하면 그냥 8개를 뿌린다.
     2. total의 개수가 9개 이상이고 현재 페이지가 4이하라면 [1][2][3][4][5] ... [tail]
@@ -30,37 +41,50 @@ function Pagination({ total, currentPage }) {
    */
     if (total <= 8) {
       for (let i = 0; i < total; i += 1) {
-        page.push(<button type="button">{`${i + 1}`}</button>);
+        page.push(
+          <button key={i + 1} type="button" value={i + 1}>{`${i + 1}`}</button>,
+        );
       }
       return page;
     }
 
     if (total >= 9 && currentPage <= 4) {
       for (let i = 0; i < 5; i += 1) {
-        page.push(<button type="button">{`${i + 1}`}</button>);
+        page.push(
+          <button key={i + 1} type="button" value={i + 1}>{`${i + 1}`}</button>,
+        );
       }
-      page.push(<span>...</span>, <button type="button">{`${total}`}</button>);
+      page.push(ellipsis, tail);
       return page;
     }
 
     if (total >= 9 && currentPage > total - 4) {
-      page.push(<button type="button">{`${1}`}</button>, <span>...</span>);
+      page.push(head, ellipsis);
       for (let i = 4; i >= 0; i -= 1) {
-        page.push(<button type="button">{`${total - i}`}</button>);
+        page.push(
+          <button key={total - i} type="button" value={total - i}>{`${
+            total - i
+          }`}</button>,
+        );
       }
       return page;
     }
 
-    page.push(<button type="button">{`${1}`}</button>, <span>...</span>);
+    page.push(head, ellipsis);
     for (let i = currentPage - 2; i <= currentPage + 2; i += 1) {
-      page.push(<button type="button">{`${i}`}</button>);
+      page.push(<button key={i} type="button" value={i}>{`${i}`}</button>);
     }
-    page.push(<span>...</span>, <button type="button">{`${total}`}</button>);
+    page.push(ellipsis, tail);
     return page;
   };
 
+  const handleOnClick = (e) => {
+    const current = Number(e.target.value);
+    setCurrentPage(current);
+  };
+
   return (
-    <div>
+    <div role="button" onClick={handleOnClick} aria-hidden="true">
       <CreatePage />
     </div>
   );

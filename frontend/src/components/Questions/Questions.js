@@ -6,7 +6,7 @@ import Pagination from '../Pagination/Pagination';
 
 function Questions() {
   const total = 9;
-  const [currentPage, setCurrentPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const handleAskBtnOnClick = () => {
     navigate('/ask');
