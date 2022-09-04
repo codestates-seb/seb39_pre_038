@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Questions.module.css';
 import Question from '../Question/Question';
+import Pagination from '../Pagination/Pagination';
 
 function Questions() {
   const navigate = useNavigate();
@@ -26,6 +27,8 @@ function Questions() {
       <div className={styles.questions}>
         <Question />
       </div>
+
+      <Pagination />
     </section>
   );
 }
