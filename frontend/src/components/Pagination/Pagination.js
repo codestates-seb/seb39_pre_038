@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import styles from './Pagination.module.css';
 
 /*
 페이지네이션 기능 체크리스트
@@ -20,6 +21,7 @@ UI 구성 요소
 */
 
 function Pagination({ total, currentPage, setCurrentPage }) {
+  const btnContainerRef = useRef(null);
   const CreatePage = () => {
     const page = [];
     const head = (
@@ -32,7 +34,8 @@ function Pagination({ total, currentPage, setCurrentPage }) {
         {total}
       </button>
     );
-    const ellipsis = <span key="ellipsis">...</span>;
+    const ellipsisHead = <span key="ellipsis-head">...</span>;
+    const ellipsisTail = <span key="ellipsis-tail">...</span>;
     /*
     1. total의 개수가 8개 이하면 그냥 8개를 뿌린다.
     2. total의 개수가 9개 이상이고 현재 페이지가 4이하라면 [1][2][3][4][5] ... [tail]
@@ -54,12 +57,12 @@ function Pagination({ total, currentPage, setCurrentPage }) {
           <button key={i + 1} type="button" value={i + 1}>{`${i + 1}`}</button>,
         );
       }
-      page.push(ellipsis, tail);
+      page.push(ellipsisTail, tail);
       return page;
     }
 
     if (total >= 9 && currentPage > total - 4) {
-      page.push(head, ellipsis);
+      page.push(head, ellipsisHead);
       for (let i = 4; i >= 0; i -= 1) {
         page.push(
           <button key={total - i} type="button" value={total - i}>{`${
@@ -70,11 +73,11 @@ function Pagination({ total, currentPage, setCurrentPage }) {
       return page;
     }
 
-    page.push(head, ellipsis);
+    page.push(head, ellipsisHead);
     for (let i = currentPage - 2; i <= currentPage + 2; i += 1) {
       page.push(<button key={i} type="button" value={i}>{`${i}`}</button>);
     }
-    page.push(ellipsis, tail);
+    page.push(ellipsisTail, tail);
     return page;
   };
 
@@ -83,8 +86,22 @@ function Pagination({ total, currentPage, setCurrentPage }) {
     setCurrentPage(current);
   };
 
+  useEffect(() => {
+    const nodeList = btnContainerRef.current.childNodes;
+    nodeList.forEach((node) => {
+      if (node.value === currentPage.toString())
+        node.classList.add(`${styles.select}`);
+    });
+  }, [currentPage]);
+
   return (
-    <div role="button" onClick={handleOnClick} aria-hidden="true">
+    <div
+      className={styles.container}
+      role="button"
+      onClick={handleOnClick}
+      aria-hidden="true"
+      ref={btnContainerRef}
+    >
       <CreatePage />
     </div>
   );
