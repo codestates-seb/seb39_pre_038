@@ -82,6 +82,7 @@ function Pagination({ total, currentPage, setCurrentPage }) {
   };
 
   const handleOnClick = (e) => {
+    if (e.target.type !== 'button') return;
     const current = Number(e.target.value);
     setCurrentPage(current);
   };
