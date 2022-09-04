@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Detail.module.css';
-import Replies from '../Repiles/Repiles';
+// import Replies from '../Repiles/Repiles';
 
 function Detail() {
   const navigate = useNavigate();
@@ -11,11 +11,7 @@ function Detail() {
     if (id === '고유 아이디') return;
     navigate('/');
   }, [id, navigate]);
-  return (
-    <section className={styles.content}>
-      <Replies />
-    </section>
-  );
+  return <section className={styles.content}>Detail</section>;
 }
 
 export default Detail;
