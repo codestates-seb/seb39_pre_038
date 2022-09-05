@@ -11,7 +11,11 @@ function Detail() {
     if (id === '고유 아이디') return;
     navigate('/');
   }, [id, navigate]);
-  return <section className={styles.content}>Detail</section>;
+  return (
+    <section className={styles.content}>
+      <Replies />
+    </section>
+  );
 }
 
 export default Detail;
