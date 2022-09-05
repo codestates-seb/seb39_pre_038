@@ -15,7 +15,10 @@ aside {
 .container ul {
   font-size: 11px;
   color: #6a737c;
-  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 3px;
 }
 
 .container li {
@@ -69,6 +72,12 @@ nav ul:nth-child(1) li:nth-child(3) {
 nav ul:nth-child(1) li:nth-child(4) {
   height: 34px;
   padding-left: 24px;
+}
+
+aside nav ul:nth-child(1) li:nth-child(1) {
+  font-weight: bold;
+  background-color: hsl(210, 8%, 95%);
+  border-right: 3px solid hsl(27, 90%, 55%);
 }
 
 @media all and (max-width: 640px) {
