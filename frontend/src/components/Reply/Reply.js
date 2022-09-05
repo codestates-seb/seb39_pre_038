@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import style from './Reply.module.css';
+import styles from './Reply.module.css';
 import Icon from '../SpriteIcon/SpriteIcon';
 
 function Reply({
@@ -10,30 +10,30 @@ function Reply({
   ansAvatarName,
   editing,
 }) {
-  const [visible, setVisible] = useState();
+  const [visible, setVisible] = useState(false);
 
   return (
-    <article className={style.reply}>
-      <div className={style.vote}>
-        <button className={style.voteBtn} type="button" aria-label="vote">
+    <article className={styles.reply}>
+      <div className={styles.vote}>
+        <button className={styles.voteBtn} type="button" aria-label="vote">
           <Icon name="arrowUp" />
         </button>
 
-        <div className={style.voteCount}>0</div>
+        <div className={styles.voteCount}>0</div>
 
-        <button className={style.voteBtn} type="button" aria-label="vote">
+        <button className={styles.voteBtn} type="button" aria-label="vote">
           <Icon name="arrowDown" />
         </button>
       </div>
-      <div className={style.replyBody}>
-        <p className={style.body}>{answer}</p>
+      <div className={styles.replyBody}>
+        <p className={styles.body}>{answer}</p>
 
-        <div className={style.avatarInfo}>
+        <div className={styles.avatarInfo}>
           <div>
-            <div className={style.avatarDate}>
+            <div className={styles.avatarDate}>
               <div>
                 <button
-                  className={style.delete}
+                  className={styles.delete}
                   type="button"
                   onClick={() => {
                     // if ("회원이름" === ansAvatarName)
@@ -43,7 +43,7 @@ function Reply({
                   Delete
                 </button>
                 <button
-                  className={style.delete}
+                  className={styles.delete}
                   type="button"
                   onClick={() => {
                     // if ("회원이름" === ansAvatarName)
@@ -55,10 +55,10 @@ function Reply({
               </div>
               {ansDate}
             </div>
-            <div className={style.deleteImgName}>
+            <div className={styles.deleteImgName}>
               <div>
                 <img src={ansAvatarImgUrl} alt="avatar" /> {ansAvatarImgUrl}
-                <span className={style.name}> {ansAvatarName}</span>
+                <span className={styles.name}> {ansAvatarName}</span>
               </div>
             </div>
             {visible && editing}
