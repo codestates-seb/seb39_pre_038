@@ -87,7 +87,7 @@ public class ReplyController {
     //업데이트
     @PatchMapping("/{question-id}/{reply-id}")
     public ResponseEntity patchReply(@Valid @RequestBody ReplyDto.Patch replyPatch,
-                                     @PathVariable("questoin-id") @Positive long questionId,
+                                     @PathVariable("question-id") @Positive long questionId,
                                      @PathVariable("reply-id") @Positive long replyId){
         Reply reply = mapper.replyPatchToReply(replyPatch);
         Reply patched = replyService.updateReply(reply,questionId,replyId);
