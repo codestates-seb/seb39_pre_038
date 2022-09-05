@@ -10,7 +10,7 @@ function Reply({
   ansAvatarName,
   editing,
 }) {
-  const [visible, setVisible] = useState();
+  const [visible, setVisible] = useState(false);
 
   return (
     <article className={style.reply}>
