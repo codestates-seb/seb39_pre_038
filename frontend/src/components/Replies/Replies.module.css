@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1264px;
+  justify-content: center;
+  padding: 24px 24px 24px 24px;
+}
+
+.editor {
+  min-width: 800px;
+  width: calc(100% - 120px);
+}
+
+.content {
+  max-width: 1100px;
+  width: calc(100% - 164px);
+  padding-top: 10px;
+  flex: 1;
+}
+
+.UrAnswer {
+  font-size: 19px;
+  margin: 0px 0px 19px;
+  padding: 20px 0px 0px;
+}
+
+.btn {
+  background-color: #0a95ff;
+  color: white;
+  width: 127.75px;
+  height: 37.78px;
+  margin: 20px 0px 0px;
+}
+
+.h3 {
+  height: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.h3 > :nth-child(1) {
+  font-size: 19px;
+}
+
+.h3 > :nth-child(2) {
+  font-size: 12px;
+}

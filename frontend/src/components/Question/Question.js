@@ -6,7 +6,7 @@ function Question({ path = '고유 아이디' }) {
   const navigate = useNavigate();
   // Detail 경로로 이동하기 위한 함수
   const handleOnClick = () => {
-    navigate(`/${path}`);
+    navigate(`/question/${path}`);
   };
   return (
     <div
