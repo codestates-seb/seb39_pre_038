@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Detail.module.css';
-// import Replies from '../Repiles/Repiles';
+import Replies from '../Replies/Replies';
 
 function Detail() {
   const navigate = useNavigate();
