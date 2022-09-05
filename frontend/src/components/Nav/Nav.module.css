@@ -12,6 +12,7 @@
   background-color: #fdfdfd;
   position: sticky;
   padding: 4px;
+  z-index: 1;
 }
 
 .hamberger {

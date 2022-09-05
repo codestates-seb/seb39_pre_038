@@ -15,6 +15,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].js',
     clean: true,
+    publicPath: '/',
   },
   devtool: 'eval-source-map',
   module: {
