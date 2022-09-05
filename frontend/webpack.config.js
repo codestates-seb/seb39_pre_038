@@ -43,7 +43,7 @@ module.exports = {
     proxy: {
       '/questions': {
         target:
-          'http://ec2-13-124-94-129.ap-northeast-2.compute.amazonaws.com:8080',
+          'http://ec2-13-124-94-129.ap-northeast-2.compute.amazonaws.com:8080/',
       },
     },
   },
