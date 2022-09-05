@@ -11,6 +11,7 @@ import com.pre_38.pre_project.reply.entity.Reply;
 import com.pre_38.pre_project.reply.mapper.ReplyMapper;
 import com.pre_38.pre_project.reply.service.ReplyService;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,7 +80,21 @@ public class ReplyController {
     public ResponseEntity deleteReply(@PathVariable("question-id") @Positive long questionId,
                                       @PathVariable("reply-id") @Positive long replyId){
 
-        replyService.deleteReply(replyId);
+        replyService.deleteReply(questionId,replyId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    //업데이트
+    @PatchMapping("/{question-id}/{reply-id}")
+    public ResponseEntity patchReply(@Valid @RequestBody ReplyDto.Patch replyPatch,
+                                     @PathVariable("questoin-id") @Positive long questionId,
+                                     @PathVariable("reply-id") @Positive long replyId){
+        Reply reply = mapper.replyPatchToReply(replyPatch);
+        Reply patched = replyService.updateReply(reply,questionId,replyId);
+        ReplyDto.response response = mapper.replyToReplyResponse(patched);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response),HttpStatus.OK
+        );
     }
 }

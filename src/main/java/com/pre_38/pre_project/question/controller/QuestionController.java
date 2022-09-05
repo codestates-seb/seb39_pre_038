@@ -84,4 +84,17 @@ public class QuestionController {
                 new SingleResponseDto<>(response),HttpStatus.OK
         );
     }
+
+    //업데이트
+    @PatchMapping("/{question-id}")
+    public ResponseEntity patchQuestion(@Valid @RequestBody QuestionDto.Patch questionPatch,
+                                        @PathVariable("question-id") @Positive long questionId){
+        Question question = mapper.questionPatchToQuestion(questionPatch); //Question객체 변환
+        Question patched = questionService.updateQuestion(question,questionId); //테이블에 수정된 정보 저장
+        QuestionDto.response response = mapper.questionToQuestionResponse(patched); //response객체 변환
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response),HttpStatus.OK
+        );
+    }
 }
