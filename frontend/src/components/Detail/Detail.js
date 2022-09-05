@@ -1,21 +1,69 @@
-import React from 'react';
-// import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Detail.module.css';
+import { DETAIL_GET_QUESTION, DELETE_QUESTION } from '../../utils/api';
+import Editor from '../Editor/Editor';
 // import Replies from '../Replies/Replies';
 
 function Detail() {
-  // const navigate = useNavigate();
-  // const { id } = useParams();
-  // 네비게이션 예외처리 Effect
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const editorRef = useRef(null);
+  const viewRef = useRef(null);
+  const [data, setData] = useState({});
+  const [isLoding, setIsLoding] = useState(true);
+  const [error, setError] = useState('');
 
-  /*
   useEffect(() => {
-    if (id === '고유 아이디') return;
-    navigate('/');
-  }, [id, navigate]);
-  */
+    axios
+      .get(DETAIL_GET_QUESTION(id))
+      .then((res) => {
+        setData(res.data);
+        setIsLoding(false);
+      })
+      .catch((err) => {
+        setIsLoding(false);
+        setError(err.message);
+      });
+  }, [id]);
 
-  return <section className={styles.content}>Replies</section>;
+  if (isLoding) return <div>Loding</div>;
+  if (error) return <div>{error}</div>;
+
+  const handleOnDelete = () => {
+    axios
+      .delete(DELETE_QUESTION(id))
+      .then(() => navigate('/'))
+      .catch(() => navigate('/'));
+  };
+
+  const haldeOnPatch = () => {
+    const value = editorRef.current.getInstance().getMarkdown();
+    const ret = {
+      title: data.data.title,
+      content: value,
+      email: 'gmail@gmail.com',
+    };
+    axios
+      .patch(DELETE_QUESTION(id), ret)
+      .then(() => viewRef.current.getInstance().setMarkdown(value))
+      .catch((err) => console.log(err));
+  };
+
+  return (
+    <section className={styles.content}>
+      <h1>{data.data.title}</h1>
+      <Editor ref={viewRef} initialValue={data.data.content} />
+      <button type="button" onClick={haldeOnPatch}>
+        Edit
+      </button>
+      <button type="button" onClick={handleOnDelete}>
+        DELETE
+      </button>
+      <Editor ref={editorRef} type="write" height="300px" />
+    </section>
+  );
 }
 
 export default Detail;

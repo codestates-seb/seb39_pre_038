@@ -36,7 +36,13 @@ function Questions() {
   const createQuestion = () => {
     if (data === null) return null;
     return data.data.map((item) => {
-      return <Question key={item.questionId} userData={item} />;
+      return (
+        <Question
+          key={item.questionId}
+          path={item.questionId}
+          userData={item}
+        />
+      );
     });
   };
 
