@@ -11,6 +11,7 @@ import com.pre_38.pre_project.reply.entity.Reply;
 import com.pre_38.pre_project.reply.mapper.ReplyMapper;
 import com.pre_38.pre_project.reply.service.ReplyService;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,8 @@ public class ReplyController {
     //요구사항 3.4
     @GetMapping("/{question-id}/replies")
     public ResponseEntity getReplies(@PathVariable("question-id") @Positive long questionId,
-                                     @RequestParam @Positive int page, @RequestParam @Positive int size){
+                                     @RequestParam @Positive int page,
+                                     @RequestParam(required = false, defaultValue = "15") @Positive int size){
         Page<Reply> pageReplies = replyService.findReplies(questionId,page-1,size);
         List<Reply> replies = pageReplies.getContent();
         List<ReplyDto.response> responses = mapper.repliesToReplyResponses(replies);
@@ -54,13 +56,12 @@ public class ReplyController {
         );
     }
 
-
     // 요구사항 3.2
     @PostMapping("/replies")
     public ResponseEntity postReply(@Valid @RequestBody ReplyDto.Post replyPost){
         Reply reply = mapper.replyPostToReply(replyPost);
 
-        Member member = memberService.findMember(replyPost.getUsername());
+        Member member = memberService.findMember(replyPost.getEmail());
         reply.setMember(member);
 
         Question question = questionService.findQuestion(replyPost.getQuestionId());
@@ -79,7 +80,21 @@ public class ReplyController {
     public ResponseEntity deleteReply(@PathVariable("question-id") @Positive long questionId,
                                       @PathVariable("reply-id") @Positive long replyId){
 
-        replyService.deleteReply(replyId);
+        replyService.deleteReply(questionId,replyId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    //업데이트
+    @PatchMapping("/{question-id}/{reply-id}")
+    public ResponseEntity patchReply(@Valid @RequestBody ReplyDto.Patch replyPatch,
+                                     @PathVariable("questoin-id") @Positive long questionId,
+                                     @PathVariable("reply-id") @Positive long replyId){
+        Reply reply = mapper.replyPatchToReply(replyPatch);
+        Reply patched = replyService.updateReply(reply,questionId,replyId);
+        ReplyDto.response response = mapper.replyToReplyResponse(patched);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response),HttpStatus.OK
+        );
     }
 }

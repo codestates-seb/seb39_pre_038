@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberSignupRequestDto {
+    private Long memberId;
     private String username;
     private String password;
     private String email;
