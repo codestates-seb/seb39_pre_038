@@ -41,10 +41,10 @@ public class QuestionController {
     //요구사항 2.1 + 2.6
     @GetMapping
     public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                       @Positive @RequestParam int size){
+                                       @Positive @RequestParam(required = false, defaultValue = "15") int size){
         Page<Question> pageQuestions = questionService.findQuestions(page-1,size);
         List<Question> questions = pageQuestions.getContent();
-        List<QuestionDto.response> responses = mapper.questionsToQuestionResponses(questions);
+        List<QuestionDto.responses> responses = mapper.questionsToQuestionResponses(questions);
         return new ResponseEntity<>(
                 new MultiResponseDto<>(responses,pageQuestions), HttpStatus.OK
         );
@@ -55,7 +55,7 @@ public class QuestionController {
     @PostMapping("/ask")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
         Question question = mapper.questionPostToQuestion(questionPost);
-        Member member = memberService.findMember(questionPost.getUsername());
+        Member member = memberService.findMember(questionPost.getEmail());
         question.setMember(member);
 
         Question posted = questionService.createQuestion(question);
@@ -79,6 +79,19 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId){
         Question question = questionService.findQuestion(questionId); //Question객체 가져오기
         QuestionDto.response response = mapper.questionToQuestionResponse(question); //Question객체 변환
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response),HttpStatus.OK
+        );
+    }
+
+    //업데이트
+    @PatchMapping("/{question-id}")
+    public ResponseEntity patchQuestion(@Valid @RequestBody QuestionDto.Patch questionPatch,
+                                        @PathVariable("question-id") @Positive long questionId){
+        Question question = mapper.questionPatchToQuestion(questionPatch); //Question객체 변환
+        Question patched = questionService.updateQuestion(question,questionId); //테이블에 수정된 정보 저장
+        QuestionDto.response response = mapper.questionToQuestionResponse(patched); //response객체 변환
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response),HttpStatus.OK
