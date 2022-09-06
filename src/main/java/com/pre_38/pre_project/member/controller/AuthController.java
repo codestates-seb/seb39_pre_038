@@ -1,5 +1,7 @@
 package com.pre_38.pre_project.member.controller;
 
+import com.pre_38.pre_project.dto.SingleResponseDto;
+import com.pre_38.pre_project.member.dto.BodyRequestDto;
 import com.pre_38.pre_project.member.dto.UserRequestDto;
 import com.pre_38.pre_project.member.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthController {
     private final AuthService authService;
 
+//    @PostMapping("/login")
+//    public ResponseEntity login(BodyRequestDto bodyRequestDto) {
+//        return new ResponseEntity<>(new SingleResponseDto, HttpStatus.CREATED)
+//    }
     @PostMapping("/user")
     public ResponseEntity user(UserRequestDto userRequestDto) {
         String result = userRequestDto.getRequest();
