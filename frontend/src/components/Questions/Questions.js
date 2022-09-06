@@ -15,7 +15,10 @@ function Questions() {
   const navigate = useNavigate();
 
   if (isLoding) return <Spinner />;
-  if (error) return navigate('/404');
+  if (error) {
+    navigate('/404');
+    return <div>Error</div>;
+  }
 
   const handleAskBtnOnClick = () => {
     navigate('/ask');
