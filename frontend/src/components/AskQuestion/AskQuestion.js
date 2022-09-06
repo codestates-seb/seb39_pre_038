@@ -1,15 +1,31 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { POST_QUESTION } from '../../utils/api';
 import styles from './AskQuestion.module.css';
 import Editor from '../Editor/Editor';
 
 function AskQuestion() {
+  const navigate = useNavigate();
+  const titleRef = useRef(null);
   const editorRef = useRef(null);
   const viewRef = useRef(null);
 
-  const onChange = () => {
-    // console.log(editorRef.current.getInstance().getHTML());
-    const value = editorRef.current.getInstance().getHTML();
+  const handleOnChange = () => {
+    const value = editorRef.current.getInstance().getMarkdown();
     viewRef.current.getInstance().setMarkdown(value);
+  };
+
+  const handleOnClick = () => {
+    const data = {
+      title: titleRef.current.value,
+      content: editorRef.current.getInstance().getMarkdown(),
+      email: 'gmail@gmail.com',
+    };
+    axios
+      .post(POST_QUESTION, data)
+      .then(() => navigate('/'))
+      .catch(() => navigate('/'));
   };
 
   return (
@@ -27,6 +43,7 @@ function AskQuestion() {
             <input
               type="text"
               placeholder="e.g is there an R function someone would need to answer your question"
+              ref={titleRef}
             />
           </div>
 
@@ -40,12 +57,16 @@ function AskQuestion() {
               type="write"
               height="300px"
               ref={editorRef}
-              onChange={onChange}
+              onChange={handleOnChange}
             />
           </div>
           <Editor ref={viewRef} />
         </div>
-        <button className={styles.postBtn} type="button">
+        <button
+          className={styles.postBtn}
+          type="button"
+          onClick={handleOnClick}
+        >
           Review your question
         </button>
       </div>
@@ -54,12 +75,3 @@ function AskQuestion() {
 }
 
 export default AskQuestion;
-
-/*
-  <Editor
-    type="write"
-    previewStyle="vertical"
-    height="400px"
-    initialEditType="markdown"
-  />
-*/

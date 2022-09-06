@@ -1,21 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GET_QUESTIONS } from '../../utils/api';
+import { useFetch } from '../../hooks/index';
 import styles from './Questions.module.css';
 import Question from '../Question/Question';
 import Pagination from '../Pagination/Pagination';
+import Spinner from '../Spinner/Spinner';
 
 function Questions() {
-  const total = 9;
   const [currentPage, setCurrentPage] = useState(1);
+  const { data, error, isLoding } = useFetch(
+    GET_QUESTIONS(`?page=${currentPage}`),
+  );
   const navigate = useNavigate();
+
+  if (isLoding) return <Spinner />;
+  if (error) {
+    navigate('/404');
+    return <div>Error</div>;
+  }
+
   const handleAskBtnOnClick = () => {
     navigate('/ask');
   };
 
-  useEffect(() => {
-    // 통신문
-    console.log(currentPage);
-  }, [currentPage]);
+  const createQuestion = () => {
+    return data.data.map((item) => {
+      return (
+        <Question
+          key={item.questionId}
+          path={item.questionId}
+          userData={item}
+        />
+      );
+    });
+  };
 
   return (
     <section className={styles.content}>
@@ -32,12 +51,10 @@ function Questions() {
         </div>
       </div>
 
-      <div className={styles.questions}>
-        <Question />
-      </div>
+      <div className={styles.questions}>{createQuestion()}</div>
 
       <Pagination
-        total={total}
+        total={data.pageInfo.totalPages}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />

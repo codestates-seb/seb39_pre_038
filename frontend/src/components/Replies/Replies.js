@@ -4,99 +4,65 @@ import Editor from '../Editor/Editor';
 import styles from './Replies.module.css';
 import Reply from '../Reply/Reply';
 
-function Replies() {
-  const [totalAnswer, setTotalAnswer] = useState(0);
-  const [queId, setQueId] = useState(0);
-  const [ansId, setAnsId] = useState(0);
-  const [replies, setReplies] = useState(null);
+function Replies({ id }) {
+  const [replies, setReplies] = useState([]);
+  const [isLoding, setIsLoding] = useState(true);
+  const [error, setError] = useState('');
+  const [toggle, setToggle] = useState(false);
 
-  const viewRef = useRef();
-  const editorRef = useRef();
-  const viewerRef = useRef();
-  const editRef = useRef();
+  const viewRef = useRef(null);
+  const editorRef = useRef(null);
 
-  const onChangeIntroFunction = () => {
-    const value = editorRef.current.getInstance().getHTML();
-    viewRef.current.getInstance().setMarkdown(value);
+  const toggleRender = () => {
+    setToggle(!toggle);
   };
 
-  const onChangeEdit = () => {
-    const value = editRef.current.getInstance().getHTML();
-    viewerRef.current.getInstance().setMarkdown(value);
+  const onChangeIntroFunction = () => {
+    const value = editorRef.current.getInstance().getMarkdown();
+    viewRef.current.getInstance().setMarkdown(value);
   };
 
   useEffect(() => {
     axios
-      .get(`/questions/${queId}`)
+      .get(`/questions/${id}`)
       .then((res) => {
-        console.log(res.data);
-        setQueId(res.data.questionId);
-        setTotalAnswer(res.data.replies.length);
-        setReplies(res.data.replies);
-        setAnsId(res.data.replies.replyId);
+        setReplies(res.data.data.replies);
+        setIsLoding(false);
       })
-      .catch((e) => console.log('somethign wrong:', e));
-  }, []);
+      .catch(() => {
+        setIsLoding(false);
+        setError('error!');
+      });
+  }, [toggle, id]);
+
+  if (isLoding) {
+    return <div>IsLoding</div>;
+  }
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   const posting = () => {
     axios
       .post('/questions/replies', {
-        content: editorRef.current.getInstance().getHTML(),
-        email: 'email',
-        questionId: queId,
+        content: editorRef.current.getInstance().getMarkdown(),
+        email: 'gmail@gmail.com',
+        questionId: id,
       })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        setToggle(!toggle);
+        editorRef.current.getInstance().setMarkdown('', false);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        return <div>Something went wrong</div>;
       });
-  };
-
-  const patch = () => {
-    axios.patch(`/questions/${queId}${ansId}`, {
-      content: editRef.current.getInstance().getHTML(),
-      email: 'emial',
-    });
-  };
-
-  const editing = (
-    <div className={styles.editor}>
-      <div>
-        <Editor
-          type="write"
-          previewStyle="vertical"
-          height="300px"
-          initialEditType="markdown"
-          ref={editRef}
-          onChange={onChangeEdit}
-        />
-      </div>
-      <div>
-        <Editor type="view" ref={viewerRef} />
-      </div>
-      <button
-        className={styles.btn}
-        type="button"
-        aria-label="Editing"
-        onClick={() => {
-          patch();
-        }}
-      >
-        Eidt My Answer
-      </button>
-    </div>
-  );
-
-  const AnswerDeleting = () => {
-    axios.delete(`/questions/${queId}/${ansId}`);
   };
 
   return (
     <main className={styles.container}>
       <section className={styles.content}>
         <div className={styles.h3}>
-          <h3>{totalAnswer} Answer</h3>
+          <h3>{replies.length} Answer</h3>
           <span>
             Sorted by:
             <select>
@@ -104,17 +70,19 @@ function Replies() {
             </select>
           </span>
         </div>
-        {replies &&
-          replies.map((res) => (
-            <Reply
-              answer={res.content}
-              AnswerDeleting={AnswerDeleting}
-              editing={editing}
-              ansDate={res.date}
-              ansAvatarImgUrl={res.avatar}
-              ansAvatarName={res.email}
-            />
-          ))}
+        {replies.map((res) => (
+          <Reply
+            answer={res.content}
+            ansDate={res.date}
+            ansAvatarImgUrl={res.avatar}
+            ansAvatarName={res.email}
+            replies={res.replies}
+            replyId={res.replyId}
+            id={id}
+            toggleRender={toggleRender}
+            key={res.replyId}
+          />
+        ))}
 
         <article>
           <h1 className={styles.UrAnswer}>Your Answer</h1>

@@ -1,16 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import styles from './Reply.module.css';
 import Icon from '../SpriteIcon/SpriteIcon';
+import Editor from '../Editor/Editor';
 
 function Reply({
   answer,
-  AnswerDeleting,
   ansDate,
   ansAvatarImgUrl,
   ansAvatarName,
-  editing,
+  id,
+  replyId,
+  toggleRender,
 }) {
   const [visible, setVisible] = useState(false);
+  const viewerRef = useRef(null);
+  const editRef = useRef(null);
+  const asnwerRef = useRef(null);
+
+  const patch = () => {
+    const value = editRef.current.getInstance().getMarkdown();
+    axios
+      .patch(`/questions/${id}/${replyId}`, {
+        content: value,
+        email: 'gmail@gmail.com',
+      })
+      .then(() => {
+        asnwerRef.current.getInstance().setMarkdown(value);
+        toggleRender();
+        setVisible(false);
+      });
+  };
+
+  const AnswerDeleting = () => {
+    axios.delete(`/questions/${id}/${replyId}`).then(() => {
+      toggleRender();
+    });
+  };
+
+  const onChangeEdit = () => {
+    const value = editRef.current.getInstance().getMarkdown();
+    viewerRef.current.getInstance().setMarkdown(value);
+  };
+
+  const editing = (
+    <div className={styles.editor}>
+      <div>
+        <Editor
+          type="write"
+          previewStyle="vertical"
+          height="300px"
+          initialEditType="markdown"
+          ref={editRef}
+          onChange={onChangeEdit}
+        />
+      </div>
+      <div>
+        <Editor type="view" ref={viewerRef} />
+      </div>
+      <button
+        className={styles.btn}
+        type="button"
+        aria-label="Editing"
+        onClick={() => {
+          patch();
+        }}
+      >
+        Eidt My Answer
+      </button>
+    </div>
+  );
 
   return (
     <article className={styles.reply}>
@@ -26,7 +85,9 @@ function Reply({
         </button>
       </div>
       <div className={styles.replyBody}>
-        <p className={styles.body}>{answer}</p>
+        <p className={styles.body}>
+          <Editor type="view" ref={asnwerRef} initialValue={answer} />
+        </p>
 
         <div className={styles.avatarInfo}>
           <div>
@@ -36,7 +97,6 @@ function Reply({
                   className={styles.delete}
                   type="button"
                   onClick={() => {
-                    // if ("회원이름" === ansAvatarName)
                     AnswerDeleting();
                   }}
                 >
@@ -46,7 +106,6 @@ function Reply({
                   className={styles.delete}
                   type="button"
                   onClick={() => {
-                    // if ("회원이름" === ansAvatarName)
                     setVisible(!visible);
                   }}
                 >
@@ -69,4 +128,4 @@ function Reply({
   );
 }
 
-export default Reply;
+export default React.memo(Reply);
