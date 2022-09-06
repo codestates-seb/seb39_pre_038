@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --port 3000 --open",
-    "build": "webpack --mode=production --progress",
+    "build": "npx webpack --mode=production --progress",
+    "dev-build": "npx webpack --mode=development --progress",
     "lint": "eslint --fix src",
     "prepare": "cd .. && husky install frontend/.husky"
   },

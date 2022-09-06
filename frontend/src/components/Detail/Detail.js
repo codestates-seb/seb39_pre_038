@@ -1,36 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Detail.module.css';
+import { useFetch } from '../../hooks/index';
 import { DETAIL_GET_QUESTION, DELETE_QUESTION } from '../../utils/api';
 import Editor from '../Editor/Editor';
 import Replies from '../Replies/Replies';
 import SpriteIcon from '../SpriteIcon/SpriteIcon';
+import Spinner from '../Spinner/Spinner';
 
 function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const editorRef = useRef(null);
   const viewRef = useRef(null);
-  const [data, setData] = useState({});
-  const [isLoding, setIsLoding] = useState(true);
-  const [error, setError] = useState('');
+  const { data, isLoding, error } = useFetch(DETAIL_GET_QUESTION(id));
 
-  useEffect(() => {
-    axios
-      .get(DETAIL_GET_QUESTION(id))
-      .then((res) => {
-        setData(res.data);
-        setIsLoding(false);
-      })
-      .catch((err) => {
-        setIsLoding(false);
-        setError(err.message);
-      });
-  }, [id]);
+  if (isLoding) return <Spinner />;
+  if (error) {
+    navigate('/404');
+    return <div>Error</div>;
+  }
 
-  if (isLoding) return <div>Loding</div>;
-  if (error) return <div>{error}</div>;
+  const handleAskBtnOnClick = () => navigate('/ask');
 
   const handleOnDelete = () => {
     axios
@@ -57,7 +49,9 @@ function Detail() {
       <div className={styles.questionWrap}>
         <div className={styles.questionHeader}>
           <h1>{data.data.title}</h1>
-          <button type="button">Ask Question</button>
+          <button type="button" onClick={handleAskBtnOnClick}>
+            Ask Question
+          </button>
         </div>
         <div className={styles.date}>
           <span>
