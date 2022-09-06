@@ -1,40 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { GET_QUESTIONS } from '../../utils/api';
+import { useFetch } from '../../hooks/index';
 import styles from './Questions.module.css';
 import Question from '../Question/Question';
 import Pagination from '../Pagination/Pagination';
+import Spinner from '../Spinner/Spinner';
 
 function Questions() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState('');
-  const [isLoding, setIsLoding] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const { data, error, isLoding } = useFetch(
+    GET_QUESTIONS(`?page=${currentPage}`),
+  );
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get(GET_QUESTIONS(`?page=${currentPage}`))
-      .then((res) => {
-        setData(res.data);
-        setIsLoding(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setIsLoding(false);
-      });
-  }, [currentPage]);
-
-  if (isLoding) return <div>Loding</div>;
-  if (error) return <div>{error}</div>;
+  if (isLoding) return <Spinner />;
+  if (error) {
+    navigate('/404');
+    return <div>Error</div>;
+  }
 
   const handleAskBtnOnClick = () => {
     navigate('/ask');
   };
 
   const createQuestion = () => {
-    if (data === null) return null;
     return data.data.map((item) => {
       return (
         <Question
@@ -64,7 +54,7 @@ function Questions() {
       <div className={styles.questions}>{createQuestion()}</div>
 
       <Pagination
-        total={data?.pageInfo.totalPages}
+        total={data.pageInfo.totalPages}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
