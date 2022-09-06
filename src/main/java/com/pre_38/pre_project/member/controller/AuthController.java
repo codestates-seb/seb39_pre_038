@@ -22,10 +22,9 @@ import javax.validation.Valid;
 public class AuthController {
     private final AuthService authService;
     @PostMapping("/user")
-    public ResponseEntity user(@RequestBody @Valid UserRequestDto userRequestDto) {
-        String result = userRequestDto.getRequest();
-
-        return new ResponseEntity(new SingleResponseDto<>(result), HttpStatus.OK);
+    public ResponseEntity user(@RequestBody String code) {
+        
+        return new ResponseEntity(new SingleResponseDto<>(code), HttpStatus.OK);
     }
 
     @PostMapping("/refresh")

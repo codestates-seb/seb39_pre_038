@@ -6,7 +6,6 @@ import com.pre_38.pre_project.member.support.OAuth2AuthenticationFailureHandler;
 import com.pre_38.pre_project.member.support.OAuth2AuthenticationSuccessHandler;
 import com.pre_38.pre_project.member.token.JwtAccessDeniedHandler;
 import com.pre_38.pre_project.member.token.JwtAuthenticationEntryPoint;
-import com.pre_38.pre_project.member.token.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final HttpCookieAuthorizationRequestRepository cookieAuthorizationRequestRepository;
     private final OAuth2AuthenticationSuccessHandler authenticationSuccessHandler;
     private final OAuth2AuthenticationFailureHandler authenticationFailureHandler;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
@@ -72,8 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
 //                .accessDeniedHandler(jwtAccessDeniedHandler);
 
-        httpSecurity
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//        httpSecurity
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 }
