@@ -8,7 +8,7 @@ import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
-const Editor = forwardRef(({ height, onChange, type }, ref) => {
+const Editor = forwardRef(({ height, onChange, type, initialValue }, ref) => {
   if (type === 'write')
     return (
       <Writer
@@ -18,7 +18,7 @@ const Editor = forwardRef(({ height, onChange, type }, ref) => {
         ref={ref}
       />
     );
-  return <Viewer ref={ref} />;
+  return <Viewer ref={ref} initialValue={initialValue} />;
 });
 
 export default Editor;
