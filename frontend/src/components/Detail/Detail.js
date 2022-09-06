@@ -7,6 +7,7 @@ import { DETAIL_GET_QUESTION, DELETE_QUESTION } from '../../utils/api';
 import Editor from '../Editor/Editor';
 import Replies from '../Replies/Replies';
 import SpriteIcon from '../SpriteIcon/SpriteIcon';
+import Spinner from '../Spinner/Spinner';
 
 function Detail() {
   const { id } = useParams();
@@ -15,8 +16,8 @@ function Detail() {
   const viewRef = useRef(null);
   const { data, isLoding, error } = useFetch(DETAIL_GET_QUESTION(id));
 
-  if (isLoding) return <div>Loding</div>;
-  if (error) return <div>{error}</div>;
+  if (isLoding) return <Spinner />;
+  if (error) return navigate('/404');
 
   const handleAskBtnOnClick = () => navigate('/ask');
 

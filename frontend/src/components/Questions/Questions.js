@@ -5,6 +5,7 @@ import { useFetch } from '../../hooks/index';
 import styles from './Questions.module.css';
 import Question from '../Question/Question';
 import Pagination from '../Pagination/Pagination';
+import Spinner from '../Spinner/Spinner';
 
 function Questions() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,8 +14,8 @@ function Questions() {
   );
   const navigate = useNavigate();
 
-  if (isLoding) return <div>Loding</div>;
-  if (error) return <div>{error}</div>;
+  if (isLoding) return <Spinner />;
+  if (error) return navigate('/404');
 
   const handleAskBtnOnClick = () => {
     navigate('/ask');
