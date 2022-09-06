@@ -13,10 +13,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail(String email);
 
-    boolean existsByEmail(String email);
-
-    @Query("SELECT m.refreshToken FROM Member m WHERE m.id=:id")
-    String getRefreshTokenById(@Param("id") Long id);
+    Optional<Member> findByOauthId(String oauthId);
 
     @Transactional
     @Modifying

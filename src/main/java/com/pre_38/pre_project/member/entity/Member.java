@@ -16,7 +16,8 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    private Long providerId;
+    @Column(nullable = false)
+    private String oauthId;
 
     @Column(nullable = false, length = 20)
     private String username;
