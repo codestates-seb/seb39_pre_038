@@ -38,12 +38,15 @@
 .reply {
   border-bottom: 1px solid hsl(210, 8%, 85%);
   display: flex;
-  padding: 16px 0px;
+  padding-top: 8px;
 }
 
 .vote {
-  display: block;
-  padding-right: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }
 
 .body {
@@ -74,4 +77,5 @@
 .replyBody {
   display: block;
   justify-content: space-between;
+  width: 1000px;
 }

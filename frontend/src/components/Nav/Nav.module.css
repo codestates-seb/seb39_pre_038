@@ -155,8 +155,8 @@
 
 */
 
-input {
-  max-width: 681px;
+.navInput {
+  width: 681px;
   height: 32px;
 }
 

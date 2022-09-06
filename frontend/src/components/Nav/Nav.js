@@ -66,7 +66,7 @@ function Nav() {
         <li>For Teams</li>
       </ol>
 
-      <input type="text" placeholder="Search..." />
+      <input className={styles.navInput} type="text" placeholder="Search..." />
       {isLogin ? createUserScreen() : createGuestScreen()}
     </nav>
   );
