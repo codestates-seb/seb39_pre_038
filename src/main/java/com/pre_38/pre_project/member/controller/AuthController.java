@@ -25,7 +25,9 @@ public class AuthController {
     private final AuthService authService;
     @PostMapping("/user")
     public ResponseEntity user(@RequestBody String code) {
+    
         log.info(code);
+
         return new ResponseEntity(new SingleResponseDto<>(code), HttpStatus.OK);
     }
 
