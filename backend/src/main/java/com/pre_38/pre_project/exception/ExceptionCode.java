@@ -8,10 +8,14 @@ public enum ExceptionCode {
     QUESTION_CANNOT_CHANGE(403,"Question can not change"),
     REPLY_NOT_FOUND(404,"Reply not found"),
     REPLY_EXISTS(409, "Reply exists"),
+<<<<<<< HEAD
+    REPLY_CANNOT_CHANGE(403,"Reply can not change");
+=======
     REPLY_CANNOT_CHANGE(403,"Reply can not change"),
     MEMBER_NOT_FOUND(404,"Member not found"),
     MEMBER_EXISTS(409, "Member exists"),
     MEMBER_CANNOT_CHANGE(403,"Member can not change");
+>>>>>>> main
 
     @Getter
     private int status;

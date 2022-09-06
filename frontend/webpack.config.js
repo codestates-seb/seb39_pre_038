@@ -15,6 +15,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].js',
     clean: true,
+    publicPath: '/',
   },
   devtool: 'eval-source-map',
   module: {
@@ -32,7 +33,8 @@ module.exports = {
   },
   plugins: [
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html'),
+      template: path.resolve(__dirname, 'public', 'index.html'),
+      favicon: path.resolve(__dirname, 'public', 'stack-overflow.png'),
       filename: 'index.html',
     }),
     new MiniCssExtractPlugin(),
@@ -42,7 +44,7 @@ module.exports = {
     proxy: {
       '/questions': {
         target:
-          'http://ec2-13-124-94-129.ap-northeast-2.compute.amazonaws.com:8080',
+          'http://ec2-13-124-94-129.ap-northeast-2.compute.amazonaws.com:8080/',
       },
     },
   },

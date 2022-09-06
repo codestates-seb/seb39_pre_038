@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Questions.module.css';
 import Question from '../Question/Question';
+import Pagination from '../Pagination/Pagination';
 
 function Questions() {
+  const total = 9;
+  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const handleAskBtnOnClick = () => {
     navigate('/ask');
   };
+
+  useEffect(() => {
+    // 통신문
+    console.log(currentPage);
+  }, [currentPage]);
+
   return (
     <section className={styles.content}>
       <div className={styles.titleWrap}>
@@ -26,6 +35,12 @@ function Questions() {
       <div className={styles.questions}>
         <Question />
       </div>
+
+      <Pagination
+        total={total}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </section>
   );
 }
