@@ -5,21 +5,20 @@ import styles from './Replies.module.css';
 import Reply from '../Reply/Reply';
 
 function Replies({ id }) {
-  const [totalAnswer, setTotalAnswer] = useState(0);
-  const [replies, setReplies] = useState(null);
+  const [replies, setReplies] = useState([]);
   const [isLoding, setIsLoding] = useState(true);
   const [error, setError] = useState('');
   const [toggle, setToggle] = useState(false);
 
-  const viewRef = useRef();
-  const editorRef = useRef();
+  const viewRef = useRef(null);
+  const editorRef = useRef(null);
 
-  const tg = () => {
+  const toggleRender = () => {
     setToggle(!toggle);
   };
 
   const onChangeIntroFunction = () => {
-    const value = editorRef.current.getInstance().getHTML();
+    const value = editorRef.current.getInstance().getMarkdown();
     viewRef.current.getInstance().setMarkdown(value);
   };
 
@@ -27,8 +26,6 @@ function Replies({ id }) {
     axios
       .get(`/questions/${id}`)
       .then((res) => {
-        console.log(res.data.data.replies);
-        setTotalAnswer(res.data.data.replies.length);
         setReplies(res.data.data.replies);
         setIsLoding(false);
       })
@@ -42,22 +39,22 @@ function Replies({ id }) {
     return <div>IsLoding</div>;
   }
   if (error) {
-    return <div>Error</div>;
+    return <div>{error}</div>;
   }
 
   const posting = () => {
     axios
       .post('/questions/replies', {
-        content: editorRef.current.getInstance().getHTML(),
+        content: editorRef.current.getInstance().getMarkdown(),
         email: 'gmail@gmail.com',
         questionId: id,
       })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         setToggle(!toggle);
+        editorRef.current.getInstance().setMarkdown('', false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        return <div>Something went wrong</div>;
       });
   };
 
@@ -65,7 +62,7 @@ function Replies({ id }) {
     <main className={styles.container}>
       <section className={styles.content}>
         <div className={styles.h3}>
-          <h3>{totalAnswer} Answer</h3>
+          <h3>{replies.length} Answer</h3>
           <span>
             Sorted by:
             <select>
@@ -82,7 +79,7 @@ function Replies({ id }) {
             replies={res.replies}
             replyId={res.replyId}
             id={id}
-            tg={tg}
+            toggleRender={toggleRender}
             key={res.replyId}
           />
         ))}
