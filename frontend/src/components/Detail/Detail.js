@@ -5,6 +5,7 @@ import styles from './Detail.module.css';
 import { DETAIL_GET_QUESTION, DELETE_QUESTION } from '../../utils/api';
 import Editor from '../Editor/Editor';
 import Replies from '../Replies/Replies';
+import SpriteIcon from '../SpriteIcon/SpriteIcon';
 
 function Detail() {
   const { id } = useParams();
@@ -53,15 +54,47 @@ function Detail() {
 
   return (
     <section className={styles.content}>
-      <h1>{data.data.title}</h1>
-      <Editor ref={viewRef} initialValue={data.data.content} />
-      <button type="button" onClick={haldeOnPatch}>
-        Edit
-      </button>
-      <button type="button" onClick={handleOnDelete}>
-        DELETE
-      </button>
-      <Editor ref={editorRef} type="write" height="300px" />
+      <div className={styles.questionWrap}>
+        <div className={styles.questionHeader}>
+          <h1>{data.data.title}</h1>
+          <button type="button">Ask Question</button>
+        </div>
+        <div className={styles.date}>
+          <span>
+            Asked <em>today</em>
+          </span>
+          <span>
+            Modified <em>today</em>
+          </span>
+          <span>
+            Viewed <em>7 times</em>
+          </span>
+        </div>
+        <div className={styles.mainbar}>
+          <div className={styles.votecell}>
+            <SpriteIcon name="arrowUp" />
+            <span>19</span>
+            <SpriteIcon name="arrowDown" />
+          </div>
+
+          <div className={styles.viewWrap}>
+            <Editor ref={viewRef} initialValue={data.data.content} />
+
+            <div className={styles.btnWrap}>
+              <button type="button" onClick={handleOnDelete}>
+                Delete
+              </button>
+              <button type="button" onClick={haldeOnPatch}>
+                Edit
+              </button>
+            </div>
+
+            <div className={styles.editor} style={{ display: 'none' }}>
+              <Editor ref={editorRef} type="write" height="300px" />
+            </div>
+          </div>
+        </div>
+      </div>
       <Replies id={id} />
     </section>
   );
