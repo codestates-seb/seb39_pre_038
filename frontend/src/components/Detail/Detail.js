@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Detail.module.css';
 import { DETAIL_GET_QUESTION, DELETE_QUESTION } from '../../utils/api';
 import Editor from '../Editor/Editor';
-// import Replies from '../Replies/Replies';
+import Replies from '../Replies/Replies';
 
 function Detail() {
   const { id } = useParams();
@@ -62,6 +62,7 @@ function Detail() {
         DELETE
       </button>
       <Editor ref={editorRef} type="write" height="300px" />
+      <Replies id={id} />
     </section>
   );
 }
