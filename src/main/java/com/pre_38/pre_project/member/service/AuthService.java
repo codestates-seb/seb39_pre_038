@@ -1,5 +1,6 @@
 package com.pre_38.pre_project.member.service;
 
+import com.pre_38.pre_project.member.dto.TokenResponse;
 import com.pre_38.pre_project.member.repository.MemberRepository;
 import com.pre_38.pre_project.member.support.CustomUserDetails;
 import com.pre_38.pre_project.member.token.JwtTokenProvider;
@@ -14,7 +15,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Log4j2
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -24,33 +24,23 @@ public class AuthService {
 
     private final MemberRepository memberRepository;
 
+    private final MemberService memberService;
+
     private final JwtTokenProvider tokenProvider;
 
+    public TokenResponse createToken(String code) {
+        //oauthclient 로 accesstoken(code) accessToken 으로 선언
+        // 프로필 받아보기
+        return null;
+
+    }
     public String refreshToken(HttpServletRequest request,
                                HttpServletResponse response,
                                String oldAccessToken) {
-        String oldRefreshToken = CookieUtil.getCookie(request, cookieKey)
-                .map(Cookie::getValue)
-                .orElseThrow(() -> new RuntimeException("no Refresh token cookie"));
+        return null;
+    }
 
-        if(!tokenProvider.validateToken(oldRefreshToken)) {
-            throw new RuntimeException("Not validated refresh token");
-        }
-
-        Authentication authentication = tokenProvider.getAuthentication(oldAccessToken);
-        CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-
-        Long id = Long.valueOf(user.getName());
-
-        String savedToken = memberRepository.getRefreshTokenById(id);
-
-        if(!savedToken.equals(oldRefreshToken)) {
-            throw new RuntimeException("Not matched Refresh Token");
-        }
-
-        String accessToken = tokenProvider.createAccessToken(authentication);
-        tokenProvider.createRefreshToken(authentication, response);
-
-        return accessToken;
+    public long getExpireTime() {
+        return tokenProvider.getValiditySeconds();
     }
 }

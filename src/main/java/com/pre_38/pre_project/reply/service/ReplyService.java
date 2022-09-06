@@ -53,8 +53,6 @@ public class ReplyService {
     public Reply updateReply(Reply reply, long questionId, long replyId){
         questionService.findVerifiedQuestion(questionId);
         Reply findReply = findVerifiedReply(replyId);
-        if(!reply.getMember().getEmail().equals(findReply.getMember().getEmail()))
-            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
 
         Optional.ofNullable(reply.getContent())
                 .ifPresent(content -> findReply.setContent(content));

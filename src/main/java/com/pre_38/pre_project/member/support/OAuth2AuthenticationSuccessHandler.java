@@ -56,9 +56,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             throw new BadRequestException("redirect URIs are not matched");
         }
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-        String accessToken = tokenProvider.createAccessToken(authentication);
-        tokenProvider.createRefreshToken(authentication, response);
-
+        String accessToken = "accessToken";
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("accessToken", accessToken)
                 .build().toUriString();

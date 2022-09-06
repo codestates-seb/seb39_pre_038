@@ -4,8 +4,6 @@ import styles from './Reply.module.css';
 import Icon from '../SpriteIcon/SpriteIcon';
 import Editor from '../Editor/Editor';
 
-// 함수 에디션
-
 function Reply({
   answer,
   ansDate,
