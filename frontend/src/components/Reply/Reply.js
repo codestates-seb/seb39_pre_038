@@ -1,16 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import styles from './Reply.module.css';
 import Icon from '../SpriteIcon/SpriteIcon';
+import Editor from '../Editor/Editor';
 
 function Reply({
   answer,
-  AnswerDeleting,
   ansDate,
   ansAvatarImgUrl,
   ansAvatarName,
-  editing,
+  id,
+  replyId,
+  tg,
 }) {
   const [visible, setVisible] = useState(false);
+  const viewerRef = useRef();
+  const editRef = useRef();
+
+  const patch = () => {
+    axios
+      .patch(`/questions/${id}/${replyId}`, {
+        content: editRef.current.getInstance().getHTML(),
+        email: 'gmail@gmail.com',
+      })
+      .then(() => {
+        tg();
+        setVisible(false);
+      });
+  };
+
+  const AnswerDeleting = () => {
+    axios.delete(`/questions/${id}/${replyId}`).then(() => {
+      tg();
+    });
+  };
+
+  const onChangeEdit = () => {
+    const value = editRef.current.getInstance().getHTML();
+    viewerRef.current.getInstance().setMarkdown(value);
+  };
+
+  const editing = (
+    <div className={styles.editor}>
+      <div>
+        <Editor
+          type="write"
+          previewStyle="vertical"
+          height="300px"
+          initialEditType="markdown"
+          ref={editRef}
+          onChange={onChangeEdit}
+        />
+      </div>
+      <div>
+        <Editor type="view" ref={viewerRef} />
+      </div>
+      <button
+        className={styles.btn}
+        type="button"
+        aria-label="Editing"
+        onClick={() => {
+          patch();
+        }}
+      >
+        Eidt My Answer
+      </button>
+    </div>
+  );
 
   return (
     <article className={styles.reply}>
@@ -69,4 +125,4 @@ function Reply({
   );
 }
 
-export default Reply;
+export default React.memo(Reply);
