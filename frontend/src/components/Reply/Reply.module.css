@@ -1,0 +1,77 @@
+.btn {
+  background-color: #0a95ff;
+  color: white;
+  width: 127.75px;
+  height: 37.78px;
+  margin: 20px 0px 0px;
+}
+
+.date {
+  color: #6a737c;
+  margin: 0px 0px 16px;
+}
+
+.avatarInfo {
+  display: block;
+  margin: 20px 50px 30px 0px;
+}
+
+.deleteImgName {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.avatarDate {
+  color: #6a737c;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  padding-bottom: 10px;
+}
+
+.name {
+  color: #0a95ff;
+}
+
+.reply {
+  border-bottom: 1px solid hsl(210, 8%, 85%);
+  display: flex;
+  padding: 16px 0px;
+}
+
+.vote {
+  display: block;
+  padding-right: 16px;
+}
+
+.body {
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.delete {
+  background-color: white;
+  color: #6a737c;
+}
+
+.voteCount {
+  font-size: 21px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.voteBtn {
+  font-size: 21px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.replyBody {
+  display: block;
+  justify-content: space-between;
+}
