@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import axios from 'axios';
 import { storge } from '../../utils/store';
 import AsideNav from '../../components/AsideNav/AsideNav';
 import styles from './Home.module.css';
@@ -16,6 +17,18 @@ function Home() {
     console.log('storge', storge.getData('API_TYPE'));
     console.log('API-Code', code);
     console.groupEnd();
+
+    const data = {
+      code,
+    };
+
+    axios
+      .post(
+        'http://ec2-13-124-94-129.ap-northeast-2.compute.amazonaws.com:8080/auth/user',
+        data,
+      )
+      .then((res) => console.log(res.statusText))
+      .catch((err) => console.log(err.message));
   }, []);
 
   return (
