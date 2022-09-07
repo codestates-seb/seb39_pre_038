@@ -9,6 +9,9 @@ const SignUp = React.lazy(() => import('./pages/SignUp/SignUp'));
 const AskQuestion = React.lazy(() =>
   import('./components/AskQuestion/AskQuestion'),
 );
+const UpDateQuestion = React.lazy(() =>
+  import('./components/UpDateQuestion/UpDateQuestion'),
+);
 const NotFound = React.lazy(() => import('./pages/NotFound/NotFound'));
 
 function App() {
@@ -21,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/ask" element={<AskQuestion />} />
+        <Route path="/update" element={<UpDateQuestion />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

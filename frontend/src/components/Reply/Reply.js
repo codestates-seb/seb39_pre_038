@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './Reply.module.css';
 import Icon from '../SpriteIcon/SpriteIcon';
 import Editor from '../Editor/Editor';
+import { PATCH_ANSWER, DELETE_ANSWER } from '../../utils/api';
 
 function Reply({
   answer,
@@ -21,7 +22,7 @@ function Reply({
   const patch = () => {
     const value = editRef.current.getInstance().getMarkdown();
     axios
-      .patch(`/questions/${id}/${replyId}`, {
+      .patch(PATCH_ANSWER(id, replyId), {
         content: value,
         email: 'gmail@gmail.com',
       })
@@ -33,7 +34,7 @@ function Reply({
   };
 
   const AnswerDeleting = () => {
-    axios.delete(`/questions/${id}/${replyId}`).then(() => {
+    axios.delete(DELETE_ANSWER(id, replyId)).then(() => {
       toggleRender();
     });
   };

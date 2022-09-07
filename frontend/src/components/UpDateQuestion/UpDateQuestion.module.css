@@ -1,0 +1,98 @@
+.container {
+  background-color: hsl(210, 8%, 95%);
+  min-height: calc(100vh - 50px);
+}
+
+.content {
+  max-width: 1264px;
+  margin: 0 auto;
+  min-height: 550px;
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  justify-content: center;
+}
+
+.contentHeader {
+  background-image: url(https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  display: flex;
+  padding: 24px 0px;
+}
+
+.contentHeader h1 {
+  font-size: 31px;
+  color: #232629;
+  font-family: inherit;
+}
+
+.editorWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px 0px;
+  background-color: hsl(0, 0%, 100%);
+  padding: 16px;
+  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06),
+    0 3px 8px hsla(0, 0%, 0%, 0.09);
+  border-radius: 3px;
+}
+
+.editorBody {
+  width: 100%;
+}
+
+.editorHeader,
+.editorBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px 0px;
+}
+
+.editorHeader h3,
+.editorBody h3 {
+  color: #0c0d0e;
+  font-size: 15px;
+}
+
+.editorHeader p,
+.editorBody p {
+  color: #0c0d0e;
+  font-size: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 7.8px 9px;
+}
+
+.postBtn {
+  width: 154px;
+  height: 38px;
+  min-height: 38px;
+  background-color: #0a95ff;
+  color: #ffffff;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid transparent;
+  margin: 32px -2px 0px;
+}
+
+@media all and (max-width: 1050px) {
+  .contentHeader {
+    background-image: none;
+    align-items: center;
+  }
+}
+
+@media all and (max-width: 650px) {
+  .contentHeader h1 {
+    font-size: 22px;
+  }
+  .editorHeader h3,
+  .editorBody h3 {
+    color: #0c0d0e;
+    font-size: 13px;
+  }
+}
