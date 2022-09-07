@@ -11,8 +11,20 @@
   top: 0;
   background-color: #fdfdfd;
   position: sticky;
-  padding: 4px;
   z-index: 1;
+}
+
+.logo {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+}
+
+.logo:hover {
+  background: hsl(210, 8%, 90%);
+  height: 100%;
 }
 
 .hamberger {

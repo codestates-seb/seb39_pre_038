@@ -3,6 +3,7 @@ import axios from 'axios';
 import Editor from '../Editor/Editor';
 import styles from './Replies.module.css';
 import Reply from '../Reply/Reply';
+import { DETAIL_GET_QUESTION, POST_ANSWER } from '../../utils/api';
 
 function Replies({ id }) {
   const [replies, setReplies] = useState([]);
@@ -24,7 +25,7 @@ function Replies({ id }) {
 
   useEffect(() => {
     axios
-      .get(`/questions/${id}`)
+      .get(DETAIL_GET_QUESTION(id))
       .then((res) => {
         setReplies(res.data.data.replies);
         setIsLoding(false);
@@ -44,7 +45,7 @@ function Replies({ id }) {
 
   const posting = () => {
     axios
-      .post('/questions/replies', {
+      .post(POST_ANSWER, {
         content: editorRef.current.getInstance().getMarkdown(),
         email: 'gmail@gmail.com',
         questionId: id,
