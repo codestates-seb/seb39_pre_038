@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { POST_QUESTION } from '../../utils/api';
+import { PATCH_QUESTION } from '../../utils/api';
 import styles from './UpDateQuestion.module.css';
 import Editor from '../Editor/Editor';
 
@@ -24,7 +24,7 @@ function UpDateQuestion() {
       email: 'gmail@gmail.com',
     };
     axios
-      .post(POST_QUESTION, result)
+      .patch(PATCH_QUESTION(location.state.id), result)
       .then(() => navigate('/'))
       .catch(() => navigate('/'));
   };
