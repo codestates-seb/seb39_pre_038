@@ -1,14 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './AsideNav.module.css';
 import SvgIcon from '../SvgIcon/SvgIcon';
 
 function AsideNav() {
+  const navigate = useNavigate();
+  const handleOnClick = () => navigate('/');
   return (
     <aside>
       <nav className={styles.container}>
         <ul>
           PUBLIC
-          <li>
+          <li onClick={handleOnClick} aria-hidden="true">
             <SvgIcon name="earth" />
             Questions
           </li>
