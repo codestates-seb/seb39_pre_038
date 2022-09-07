@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import styles from './Detail.module.css';
 import { useFetch } from '../../hooks/index';
 import { DETAIL_GET_QUESTION, DELETE_QUESTION } from '../../utils/api';
@@ -11,6 +11,7 @@ import Spinner from '../Spinner/Spinner';
 
 function Detail() {
   const { id } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const viewRef = useRef(null);
   const { data, isLoding, error } = useFetch(DETAIL_GET_QUESTION(id));
@@ -63,7 +64,7 @@ function Detail() {
         <div className={styles.mainbar}>
           <div className={styles.votecell}>
             <SpriteIcon name="arrowUp" />
-            <span>19</span>
+            <span>{location.state.votes}</span>
             <SpriteIcon name="arrowDown" />
           </div>
 
