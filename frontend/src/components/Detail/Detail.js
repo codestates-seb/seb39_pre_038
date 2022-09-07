@@ -34,6 +34,7 @@ function Detail() {
   const handleOnUpdate = () => {
     navigate('/update', {
       state: {
+        id,
         title: data.data.title,
         content: data.data.content,
         email: 'gmail@gmail.com',
