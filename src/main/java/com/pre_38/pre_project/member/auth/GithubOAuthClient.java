@@ -1,33 +1,51 @@
 package com.pre_38.pre_project.member.auth;
 
+import com.pre_38.pre_project.member.auth.dto.AccessTokenRequest;
 import com.pre_38.pre_project.member.auth.dto.AccessTokenResponse;
 import com.pre_38.pre_project.member.auth.dto.GithubMemberInfoResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+@Component
 public class GithubOAuthClient implements OAuthClient{
 
-    // acceessToken 요청 url "https://github.com/login/oauth/access_token"
-    // memberInfo 요청 url "https://api.github.com/user"
+    private static final String ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
+    private static final String MEMBER_INFO_URL = "https://api.github.com/user";
 
-    // clientId
-    // clientSecret
+    private static final RestTemplate restTemplate =new RestTemplate();
 
-    // 생성자 @Value 애너테이션으로 값 지정
-    // security.oauth.github.client-id
-    // security.oauth.github.client-secret
+    private final String clientId;
+    private final String clientSecret;
+
+    public GithubOAuthClient(@Value("${security.oauth.github.client-id}") String clientId,
+                             @Value("${security.oauth.github.client-secret}")String clientSecret) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+    }
 
     @Override
     public AccessTokenResponse getAccessToken(String code) {
-        // POST 요청으로 받은 code로 AccessToken 교환
-        // accessTokenUrl,(clientId, clientSecret, code)
-        // restTemplate postForObject 메서드로 리턴
-        return null;
+        return restTemplate.postForObject(
+                ACCESS_TOKEN_URL,
+                new AccessTokenRequest(clientId, clientSecret, code),
+                AccessTokenResponse.class);
     }
 
     @Override
     public GithubMemberInfoResponse getMemberInfo(String accessToken) {
-        // 발급받은 액세스 토큰을 이용해 resource server에서 유저의 정보 받아오기
-        // header에 bearer 타입으로 지정
-        // restTemplate exchange 메서드로 리턴(HTTP GET 통신)
-        return null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+        HttpEntity<Void> request = new HttpEntity<>(headers);
+
+        return restTemplate.exchange(
+                MEMBER_INFO_URL,
+                HttpMethod.GET,
+                request,
+                GithubMemberInfoResponse.class)
+                .getBody();
     }
 }
