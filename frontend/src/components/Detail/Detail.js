@@ -12,7 +12,6 @@ import Spinner from '../Spinner/Spinner';
 function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const editorRef = useRef(null);
   const viewRef = useRef(null);
   const { data, isLoding, error } = useFetch(DETAIL_GET_QUESTION(id));
 
@@ -31,17 +30,14 @@ function Detail() {
       .catch(() => navigate('/'));
   };
 
-  const haldeOnPatch = () => {
-    const value = editorRef.current.getInstance().getMarkdown();
-    const ret = {
-      title: data.data.title,
-      content: value,
-      email: 'gmail@gmail.com',
-    };
-    axios
-      .patch(DELETE_QUESTION(id), ret)
-      .then(() => viewRef.current.getInstance().setMarkdown(value))
-      .catch((err) => console.log(err));
+  const handleOnUpdate = () => {
+    navigate('/update', {
+      state: {
+        title: data.data.title,
+        content: data.data.content,
+        email: 'gmail@gmail.com',
+      },
+    });
   };
 
   return (
@@ -78,13 +74,9 @@ function Detail() {
               <button type="button" onClick={handleOnDelete}>
                 Delete
               </button>
-              <button type="button" onClick={haldeOnPatch}>
+              <button type="button" onClick={handleOnUpdate}>
                 Edit
               </button>
-            </div>
-
-            <div className={styles.editor} style={{ display: 'none' }}>
-              <Editor ref={editorRef} type="write" height="300px" />
             </div>
           </div>
         </div>
