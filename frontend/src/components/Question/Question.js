@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { randomRange } from '../../utils/random';
+import { randomRange, randomAvatar } from '../../utils/random';
 import styles from './Question.module.css';
 
 const defaultData = {
@@ -39,8 +39,8 @@ function Question({ path = '', userData = defaultData }) {
         <h2>{userData.title}</h2>
         <p>{userData.content}</p>
         <div>
-          <img src={userData.member.avatar} alt="avatar" />
-          <span className={styles.userId}>{userData.member.username}</span>
+          <img src={randomAvatar().avatar} alt="avatar" />
+          <span className={styles.userId}>{randomAvatar().name}</span>
           <span className={styles.timeAgo}>{userData.date}</span>
         </div>
       </div>
