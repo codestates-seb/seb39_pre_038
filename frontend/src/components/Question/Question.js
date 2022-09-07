@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { randomRange, randomAvatar } from '../../utils/random';
 import styles from './Question.module.css';
 
 const defaultData = {
@@ -18,10 +19,10 @@ const defaultData = {
 
 function Question({ path = '', userData = defaultData }) {
   const navigate = useNavigate();
-  // Detail 경로로 이동하기 위한 함수
-  const handleOnClick = () => {
-    navigate(`/question/${path}`);
-  };
+  const votes = randomRange(1, 100);
+  const views = randomRange(0, 1500);
+  const handleOnClick = () =>
+    navigate(`/question/${path}`, { state: { votes } });
   return (
     <div
       className={styles.container}
@@ -30,16 +31,16 @@ function Question({ path = '', userData = defaultData }) {
       aria-hidden="true"
     >
       <div className={styles.stats}>
-        <div>0 votes</div>
+        <div>{votes} votes</div>
         <div>{userData.replies} answer</div>
-        <div>26 views</div>
+        <div>{views} views</div>
       </div>
       <div className={styles.content}>
         <h2>{userData.title}</h2>
         <p>{userData.content}</p>
         <div>
-          <img src={userData.member.avatar} alt="avatar" />
-          <span className={styles.userId}>{userData.member.username}</span>
+          <img src={randomAvatar().avatar} alt="avatar" />
+          <span className={styles.userId}>{randomAvatar().name}</span>
           <span className={styles.timeAgo}>{userData.date}</span>
         </div>
       </div>
