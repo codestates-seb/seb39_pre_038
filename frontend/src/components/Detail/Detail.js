@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import styles from './Detail.module.css';
 import { useFetch } from '../../hooks/index';
 import { DETAIL_GET_QUESTION, DELETE_QUESTION } from '../../utils/api';
@@ -11,8 +11,8 @@ import Spinner from '../Spinner/Spinner';
 
 function Detail() {
   const { id } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
-  const editorRef = useRef(null);
   const viewRef = useRef(null);
   const { data, isLoding, error } = useFetch(DETAIL_GET_QUESTION(id));
 
@@ -31,17 +31,14 @@ function Detail() {
       .catch(() => navigate('/'));
   };
 
-  const haldeOnPatch = () => {
-    const value = editorRef.current.getInstance().getMarkdown();
-    const ret = {
-      title: data.data.title,
-      content: value,
-      email: 'gmail@gmail.com',
-    };
-    axios
-      .patch(DELETE_QUESTION(id), ret)
-      .then(() => viewRef.current.getInstance().setMarkdown(value))
-      .catch((err) => console.log(err));
+  const handleOnUpdate = () => {
+    navigate('/update', {
+      state: {
+        title: data.data.title,
+        content: data.data.content,
+        email: 'gmail@gmail.com',
+      },
+    });
   };
 
   return (
@@ -67,7 +64,7 @@ function Detail() {
         <div className={styles.mainbar}>
           <div className={styles.votecell}>
             <SpriteIcon name="arrowUp" />
-            <span>19</span>
+            <span>{location.state.votes}</span>
             <SpriteIcon name="arrowDown" />
           </div>
 
@@ -78,13 +75,9 @@ function Detail() {
               <button type="button" onClick={handleOnDelete}>
                 Delete
               </button>
-              <button type="button" onClick={haldeOnPatch}>
+              <button type="button" onClick={handleOnUpdate}>
                 Edit
               </button>
-            </div>
-
-            <div className={styles.editor} style={{ display: 'none' }}>
-              <Editor ref={editorRef} type="write" height="300px" />
             </div>
           </div>
         </div>
