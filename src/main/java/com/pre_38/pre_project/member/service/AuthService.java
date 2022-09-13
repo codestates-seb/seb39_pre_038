@@ -1,46 +1,43 @@
 package com.pre_38.pre_project.member.service;
 
-import com.pre_38.pre_project.member.dto.TokenResponse;
+import com.pre_38.pre_project.member.auth.OAuthClient;
+import com.pre_38.pre_project.member.auth.dto.AccessTokenResponse;
+import com.pre_38.pre_project.member.auth.dto.GithubMemberInfoResponse;
+import com.pre_38.pre_project.member.controller.dto.SigninRequest;
+import com.pre_38.pre_project.member.controller.dto.SigninResponse;
+import com.pre_38.pre_project.member.entity.Member;
 import com.pre_38.pre_project.member.repository.MemberRepository;
-import com.pre_38.pre_project.member.support.CustomUserDetails;
-import com.pre_38.pre_project.member.token.JwtTokenProvider;
-import com.pre_38.pre_project.member.util.CookieUtil;
+import com.pre_38.pre_project.member.token.TokenProvider;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthService {
 
-    @Value("${app.auth.token.refresh-cookie-key}")
-    private String cookieKey;
-
     private final MemberRepository memberRepository;
+    private final OAuthClient oAuthClient;
+    private final TokenProvider tokenProvider;
 
-    private final MemberService memberService;
+    public SigninResponse signin(SigninRequest signinRequest) {
+        GithubMemberInfoResponse memberInfoResponse = getOAuthMemberInfo(signinRequest.getCode());
 
-    private final JwtTokenProvider tokenProvider;
+        Member member = findOrSaveMember(memberInfoResponse);
 
-    public TokenResponse createToken(String code) {
-        //oauthclient 로 accesstoken(code) accessToken 으로 선언
-        // 프로필 받아보기
-        return null;
-
-    }
-    public String refreshToken(HttpServletRequest request,
-                               HttpServletResponse response,
-                               String oldAccessToken) {
-        return null;
+        String token = tokenProvider.createToken(String.valueOf(member.getMemberId()));
+        return new SigninResponse(token);
     }
 
-    public long getExpireTime() {
-        return tokenProvider.getValiditySeconds();
+    private GithubMemberInfoResponse getOAuthMemberInfo(String code) {
+        AccessTokenResponse tokenResponse = oAuthClient.getAccessToken(code);
+        return oAuthClient.getMemberInfo(tokenResponse.getAccessToken());
+    }
+
+    private Member findOrSaveMember(GithubMemberInfoResponse memberInfoResponse) {
+        return memberRepository.findByOauthId(memberInfoResponse.getOauthId())
+                .orElseGet(
+                        () -> memberRepository.save(memberInfoResponse.toMember()));
     }
 }

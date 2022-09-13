@@ -16,7 +16,8 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    private Long providerId;
+    @Column(nullable = false)
+    private String oauthId;
 
     @Column(nullable = false, length = 20)
     private String username;
@@ -26,14 +27,6 @@ public class Member {
 
     @Column(nullable = false)
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    @Enumerated(EnumType.STRING)
-    private AuthProvider authProvider;
-
-    private String refreshToken;
 
     @Column(nullable = false)
     private LocalDateTime date = LocalDateTime.now();
